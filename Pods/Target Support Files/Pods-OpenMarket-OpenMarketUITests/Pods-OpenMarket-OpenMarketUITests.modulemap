@@ -1,0 +1,6 @@
+framework module Pods_OpenMarket_OpenMarketUITests {
+  umbrella header "Pods-OpenMarket-OpenMarketUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
