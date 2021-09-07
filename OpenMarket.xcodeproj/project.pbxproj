@@ -22,6 +22,7 @@
 		B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */; };
 		B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */; };
 		B0D9BD7226E6FA0E005115B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7126E6FA0E005115B3 /* NetworkManager.swift */; };
+		B0D9BD7426E72CC8005115B3 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7326E72CC8005115B3 /* NetworkError.swift */; };
 		B96AC4B4CABFCACA6390CFAC /* Pods_OpenMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580A83DAA70D94457E9323CE /* Pods_OpenMarket.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		B0D9BD7126E6FA0E005115B3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		B0D9BD7326E72CC8005115B3 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		C5E913F1852FCCFFCF0F6AA3 /* Pods_OpenMarketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMarketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA331902867DB774BF6482F0 /* Pods-OpenMarketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarketTests.release.xcconfig"; path = "Target Support Files/Pods-OpenMarketTests/Pods-OpenMarketTests.release.xcconfig"; sourceTree = "<group>"; };
 		F7EA2992138DD85B5418004A /* Pods-OpenMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarket.release.xcconfig"; path = "Target Support Files/Pods-OpenMarket/Pods-OpenMarket.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				B0D9BD6A26E6EDD5005115B3 /* HttpMethod.swift */,
 				B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */,
 				B0D9BD7126E6FA0E005115B3 /* NetworkManager.swift */,
+				B0D9BD7326E72CC8005115B3 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0D9BD6B26E6EDD5005115B3 /* HttpMethod.swift in Sources */,
+				B0D9BD7426E72CC8005115B3 /* NetworkError.swift in Sources */,
 				B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */,
 				B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */,
 				B0D9BD7226E6FA0E005115B3 /* NetworkManager.swift in Sources */,
