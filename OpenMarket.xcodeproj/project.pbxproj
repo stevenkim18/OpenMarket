@@ -155,7 +155,7 @@
 				B0D9BD6826E6ECBF005115B3 /* Models */,
 				B078694926E59E6C0069F5B2 /* Main.storyboard */,
 				B0D9BD6626E6E709005115B3 /* Resources */,
-				B0D9BD6526E6E6E1005115B3 /* SupportingFIles */,
+				B0D9BD6526E6E6E1005115B3 /* SupportingFiles */,
 			);
 			path = OpenMarket;
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 			path = OpenMarketUITests;
 			sourceTree = "<group>";
 		};
-		B0D9BD6526E6E6E1005115B3 /* SupportingFIles */ = {
+		B0D9BD6526E6E6E1005115B3 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				B078694326E59E6C0069F5B2 /* AppDelegate.swift */,
@@ -186,7 +186,7 @@
 				B078694E26E59E6D0069F5B2 /* LaunchScreen.storyboard */,
 				B078695126E59E6D0069F5B2 /* Info.plist */,
 			);
-			path = SupportingFIles;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		B0D9BD6626E6E709005115B3 /* Resources */ = {

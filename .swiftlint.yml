@@ -1,6 +1,7 @@
 disabled_rules:
+- trailing_whitespace
 included:
 excluded:
 - Pods
-- OpenMarket/AppDelegate.swift
-- OpenMarket/SceneDelegate.swift
+- OpenMarket/SupportingFiles/AppDelegate.swift
+- OpenMarket/SupportingFiles/SceneDelegate.swift
