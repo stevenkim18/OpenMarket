@@ -18,6 +18,9 @@
 		B078695B26E59E6D0069F5B2 /* OpenMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078695A26E59E6D0069F5B2 /* OpenMarketTests.swift */; };
 		B078696626E59E6D0069F5B2 /* OpenMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */; };
 		B078697826E5F8E00069F5B2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B078697726E5F8E00069F5B2 /* .swiftlint.yml */; };
+		B0D9BD6B26E6EDD5005115B3 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6A26E6EDD5005115B3 /* HttpMethod.swift */; };
+		B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */; };
+		B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */; };
 		B96AC4B4CABFCACA6390CFAC /* Pods_OpenMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580A83DAA70D94457E9323CE /* Pods_OpenMarket.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +62,9 @@
 		B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMarketUITests.swift; sourceTree = "<group>"; };
 		B078696726E59E6D0069F5B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B078697726E5F8E00069F5B2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B0D9BD6A26E6EDD5005115B3 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		C5E913F1852FCCFFCF0F6AA3 /* Pods_OpenMarketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMarketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA331902867DB774BF6482F0 /* Pods-OpenMarketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarketTests.release.xcconfig"; path = "Target Support Files/Pods-OpenMarketTests/Pods-OpenMarketTests.release.xcconfig"; sourceTree = "<group>"; };
 		F7EA2992138DD85B5418004A /* Pods-OpenMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarket.release.xcconfig"; path = "Target Support Files/Pods-OpenMarket/Pods-OpenMarket.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,8 +148,9 @@
 		B078694226E59E6C0069F5B2 /* OpenMarket */ = {
 			isa = PBXGroup;
 			children = (
+				B0D9BD6E26E6F47C005115B3 /* Constants */,
 				B0D9BD6726E6E9F1005115B3 /* Controllers */,
-				B0D9BD6826E6ECBF005115B3 /* Model */,
+				B0D9BD6826E6ECBF005115B3 /* Models */,
 				B078694926E59E6C0069F5B2 /* Main.storyboard */,
 				B0D9BD6626E6E709005115B3 /* Resources */,
 				B0D9BD6526E6E6E1005115B3 /* SupportingFIles */,
@@ -196,19 +203,29 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		B0D9BD6826E6ECBF005115B3 /* Model */ = {
+		B0D9BD6826E6ECBF005115B3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				B0D9BD6926E6ECD1005115B3 /* Network */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B0D9BD6926E6ECD1005115B3 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				B0D9BD6A26E6EDD5005115B3 /* HttpMethod.swift */,
+				B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		B0D9BD6E26E6F47C005115B3 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,7 +449,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0D9BD6B26E6EDD5005115B3 /* HttpMethod.swift in Sources */,
+				B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */,
 				B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */,
+				B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */,
 				B078694426E59E6C0069F5B2 /* AppDelegate.swift in Sources */,
 				B078694626E59E6C0069F5B2 /* SceneDelegate.swift in Sources */,
 			);
