@@ -5,3 +5,4 @@ excluded:
 - Pods
 - OpenMarket/SupportingFiles/AppDelegate.swift
 - OpenMarket/SupportingFiles/SceneDelegate.swift
+- OpenMarketTests/Network/Dummy/

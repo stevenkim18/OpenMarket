@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0A362C6BB794B0454671B3D7 /* Pods_OpenMarket_OpenMarketUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1278F336B6671B99379E1EF9 /* Pods_OpenMarket_OpenMarketUITests.framework */; };
 		1DC7244573A135CCAD678F2F /* Pods_OpenMarketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E913F1852FCCFFCF0F6AA3 /* Pods_OpenMarketTests.framework */; };
+		B0269EDC26E8AFEE00A478E1 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0269EDA26E8A58100A478E1 /* MockURLProtocol.swift */; };
+		B0269EDD26E8AFF100A478E1 /* DummyJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD8626E76450005115B3 /* DummyJson.swift */; };
+		B0269EDE26E8AFF300A478E1 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7626E73DAA005115B3 /* NetworkManagerTests.swift */; };
 		B078694426E59E6C0069F5B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078694326E59E6C0069F5B2 /* AppDelegate.swift */; };
 		B078694626E59E6C0069F5B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078694526E59E6C0069F5B2 /* SceneDelegate.swift */; };
 		B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078694726E59E6C0069F5B2 /* ViewController.swift */; };
@@ -23,7 +26,6 @@
 		B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */; };
 		B0D9BD7226E6FA0E005115B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7126E6FA0E005115B3 /* NetworkManager.swift */; };
 		B0D9BD7426E72CC8005115B3 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7326E72CC8005115B3 /* NetworkError.swift */; };
-		B0D9BD7726E73DAA005115B3 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7626E73DAA005115B3 /* NetworkManagerTests.swift */; };
 		B0D9BD7E26E7456E005115B3 /* BasicGoodsInfomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7D26E7456E005115B3 /* BasicGoodsInfomation.swift */; };
 		B0D9BD8026E74C00005115B3 /* GoodsDetailInfomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7F26E74C00005115B3 /* GoodsDetailInfomation.swift */; };
 		B0D9BD8226E750C2005115B3 /* GoodsBriefInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD8126E750C2005115B3 /* GoodsBriefInformation.swift */; };
@@ -54,6 +56,7 @@
 		407CAA9CD746D9635277E247 /* Pods-OpenMarket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarket.debug.xcconfig"; path = "Target Support Files/Pods-OpenMarket/Pods-OpenMarket.debug.xcconfig"; sourceTree = "<group>"; };
 		580A83DAA70D94457E9323CE /* Pods_OpenMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E875E0C5E9117D82470AFE /* Pods-OpenMarket-OpenMarketUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarket-OpenMarketUITests.debug.xcconfig"; path = "Target Support Files/Pods-OpenMarket-OpenMarketUITests/Pods-OpenMarket-OpenMarketUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B0269EDA26E8A58100A478E1 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		B078694026E59E6C0069F5B2 /* OpenMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B078694326E59E6C0069F5B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B078694526E59E6C0069F5B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 		B0D9BD7F26E74C00005115B3 /* GoodsDetailInfomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDetailInfomation.swift; sourceTree = "<group>"; };
 		B0D9BD8126E750C2005115B3 /* GoodsBriefInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsBriefInformation.swift; sourceTree = "<group>"; };
 		B0D9BD8326E75424005115B3 /* GoodsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsList.swift; sourceTree = "<group>"; };
+		B0D9BD8626E76450005115B3 /* DummyJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyJson.swift; sourceTree = "<group>"; };
 		C5E913F1852FCCFFCF0F6AA3 /* Pods_OpenMarketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMarketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA331902867DB774BF6482F0 /* Pods-OpenMarketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarketTests.release.xcconfig"; path = "Target Support Files/Pods-OpenMarketTests/Pods-OpenMarketTests.release.xcconfig"; sourceTree = "<group>"; };
 		F7EA2992138DD85B5418004A /* Pods-OpenMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarket.release.xcconfig"; path = "Target Support Files/Pods-OpenMarket/Pods-OpenMarket.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +140,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B0269ED926E8A57200A478E1 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				B0269EDA26E8A58100A478E1 /* MockURLProtocol.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		B078693726E59E6C0069F5B2 = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +187,7 @@
 		B078695926E59E6D0069F5B2 /* OpenMarketTests */ = {
 			isa = PBXGroup;
 			children = (
+				B0D9BD7526E739BE005115B3 /* Network */,
 				B078695A26E59E6D0069F5B2 /* OpenMarketTests.swift */,
 				B078695C26E59E6D0069F5B2 /* Info.plist */,
 			);
@@ -184,7 +197,6 @@
 		B078696426E59E6D0069F5B2 /* OpenMarketUITests */ = {
 			isa = PBXGroup;
 			children = (
-				B0D9BD7526E739BE005115B3 /* Network */,
 				B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */,
 				B078696726E59E6D0069F5B2 /* Info.plist */,
 			);
@@ -251,6 +263,8 @@
 		B0D9BD7526E739BE005115B3 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				B0269ED926E8A57200A478E1 /* Mock */,
+				B0D9BD8526E7642E005115B3 /* Dummy */,
 				B0D9BD7626E73DAA005115B3 /* NetworkManagerTests.swift */,
 			);
 			path = Network;
@@ -279,6 +293,14 @@
 				B0D9BD7D26E7456E005115B3 /* BasicGoodsInfomation.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B0D9BD8526E7642E005115B3 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				B0D9BD8626E76450005115B3 /* DummyJson.swift */,
+			);
+			path = Dummy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -521,7 +543,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0269EDE26E8AFF300A478E1 /* NetworkManagerTests.swift in Sources */,
 				B078695B26E59E6D0069F5B2 /* OpenMarketTests.swift in Sources */,
+				B0269EDC26E8AFEE00A478E1 /* MockURLProtocol.swift in Sources */,
+				B0269EDD26E8AFF100A478E1 /* DummyJson.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,7 +554,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0D9BD7726E73DAA005115B3 /* NetworkManagerTests.swift in Sources */,
 				B078696626E59E6D0069F5B2 /* OpenMarketUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
