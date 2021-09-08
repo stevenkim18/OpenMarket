@@ -12,6 +12,8 @@
 		B0269EDC26E8AFEE00A478E1 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0269EDA26E8A58100A478E1 /* MockURLProtocol.swift */; };
 		B0269EDD26E8AFF100A478E1 /* DummyJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD8626E76450005115B3 /* DummyJson.swift */; };
 		B0269EDE26E8AFF300A478E1 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD7626E73DAA005115B3 /* NetworkManagerTests.swift */; };
+		B0269EE026E8EFD400A478E1 /* DummyHTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0269EDF26E8EFD400A478E1 /* DummyHTTPURLResponse.swift */; };
+		B0269EE626E9062B00A478E1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0269EE526E9062B00A478E1 /* NetworkError.swift */; };
 		B078694426E59E6C0069F5B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078694326E59E6C0069F5B2 /* AppDelegate.swift */; };
 		B078694626E59E6C0069F5B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078694526E59E6C0069F5B2 /* SceneDelegate.swift */; };
 		B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078694726E59E6C0069F5B2 /* ViewController.swift */; };
@@ -57,6 +59,8 @@
 		580A83DAA70D94457E9323CE /* Pods_OpenMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69E875E0C5E9117D82470AFE /* Pods-OpenMarket-OpenMarketUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarket-OpenMarketUITests.debug.xcconfig"; path = "Target Support Files/Pods-OpenMarket-OpenMarketUITests/Pods-OpenMarket-OpenMarketUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B0269EDA26E8A58100A478E1 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		B0269EDF26E8EFD400A478E1 /* DummyHTTPURLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyHTTPURLResponse.swift; sourceTree = "<group>"; };
+		B0269EE526E9062B00A478E1 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		B078694026E59E6C0069F5B2 /* OpenMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B078694326E59E6C0069F5B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B078694526E59E6C0069F5B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +150,14 @@
 				B0269EDA26E8A58100A478E1 /* MockURLProtocol.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		B0269EE426E9060000A478E1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B0269EE526E9062B00A478E1 /* NetworkError.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		B078693726E59E6C0069F5B2 = {
@@ -265,6 +277,7 @@
 			children = (
 				B0269ED926E8A57200A478E1 /* Mock */,
 				B0D9BD8526E7642E005115B3 /* Dummy */,
+				B0269EE426E9060000A478E1 /* Extension */,
 				B0D9BD7626E73DAA005115B3 /* NetworkManagerTests.swift */,
 			);
 			path = Network;
@@ -299,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				B0D9BD8626E76450005115B3 /* DummyJson.swift */,
+				B0269EDF26E8EFD400A478E1 /* DummyHTTPURLResponse.swift */,
 			);
 			path = Dummy;
 			sourceTree = "<group>";
@@ -546,7 +560,9 @@
 				B0269EDE26E8AFF300A478E1 /* NetworkManagerTests.swift in Sources */,
 				B078695B26E59E6D0069F5B2 /* OpenMarketTests.swift in Sources */,
 				B0269EDC26E8AFEE00A478E1 /* MockURLProtocol.swift in Sources */,
+				B0269EE626E9062B00A478E1 /* NetworkError.swift in Sources */,
 				B0269EDD26E8AFF100A478E1 /* DummyJson.swift in Sources */,
+				B0269EE026E8EFD400A478E1 /* DummyHTTPURLResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

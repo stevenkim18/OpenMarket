@@ -24,4 +24,3 @@ protocol ResponseGoodsInformation: Decodable, BasicGoodsInformation {
     var thumbnails: [String] { get set }
     var registrationData: Double { get set }
 }
-
