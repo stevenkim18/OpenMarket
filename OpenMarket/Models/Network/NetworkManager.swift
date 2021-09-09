@@ -22,8 +22,21 @@ struct NetworkManager {
         }
         
         let urlRequest = generateRequest(with: url, endPoint)
-        
-        session.dataTask(with: urlRequest) { data, response, error in
+        dataTask(with: urlRequest, completion: completion)
+    }
+    
+//    func request(with jsonData: String)
+    
+    func upload(form: MutipartForm, _ endPoint: EndPoint, completion: @escaping ResultHandler) {
+        guard let url = URL(string: endPoint.url) else {
+            return completion(.failure(.invalidURL))
+        }
+        let urlRequest = generateUploadRequest(with: form, url: url, endPoint)
+        dataTask(with: urlRequest, completion: completion)
+    }
+    
+    private func dataTask(with request: URLRequest, completion: @escaping ResultHandler) {
+        session.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 return completion(.failure(.requestError))
             }
@@ -45,12 +58,44 @@ struct NetworkManager {
         }.resume()
     }
     
+    private func generateUploadRequest(with form: MutipartForm, url: URL, _ endPoint: EndPoint) -> URLRequest{
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "\(endPoint.httpMethod)"
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)",
+                         forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = createHttpBody(form: form, boundary: boundary)
+        return urlRequest
+    }
+    
     private func generateRequest(with url: URL, _ endPoint: EndPoint) -> URLRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "\(endPoint.httpMethod)"
         return urlRequest
     }
     
-//    private func createHttpBody
+    private func createHttpBody(form: MutipartForm, boundary: String) -> Data {
+        var data = Data()
+        let boundaryPrefix = "--\(boundary)\r\n"
+        
+        for (key, value) in form.mutipartFormData {
+            data.appendString(boundaryPrefix)
+            data.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            data.appendString("\(value)\r\n")
+        }
+        
+        if let images = form.images {
+            for imageData in images {
+                data.appendString(boundaryPrefix)
+                data.appendString("Content-Disposition: form-data; name=\"images[]\"; filename=\"image.jpg\"\r\n")
+                data.appendString("Content-Type: image/jpg\r\n\r\n")
+                data.append(imageData)
+                data.appendString("\r\n")
+            }
+        }
+        
+        data.appendString("--".appending(boundary.appending("--")))
+        return data
+    }
     
 }
