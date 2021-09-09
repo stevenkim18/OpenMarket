@@ -30,10 +30,13 @@ protocol ResponseGoodsInformation: Decodable, BasicGoodsInformation {
 
 protocol RequestGoodsInformation: BasicGoodsInformation, Password, MutipartForm {
     var descriptions: StringType { get set }
+}
+
+protocol Images {
     var images: [Data]? { get set }
 }
 
-protocol MutipartForm {
+protocol MutipartForm: Images {
     var mutipartFormData: [String: String] { get }
 }
 
