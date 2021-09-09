@@ -191,5 +191,33 @@ class NetworkManagerTests: XCTestCase {
         
         wait(for: [expectation], timeout: 1)
     }
+    
+    func test_NetworkManager_Success_상품등록을_요청했을떄_업로드가_성공하고_json데이터를_응답한다() {
+        // given
+        let endPoint = EndPoint.createItem
+        let createGoodsURL = URL(string: endPoint.url)
+        let responseGoodsData = DummyJson.successDetail.data(using: .utf8)
+        
+        MockURLProtocol.requestHandler = { request in
+            XCTAssertEqual(request.url, createGoodsURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
+            XCTAssertNotNil(request.body)
+            return (responseGoodsData, DummyHTTPURLResponse.success, nil)
+        }
+        
+        let expectation = expectation(description: "upload success")
+        
+        networkManager.upload(form: DummyForm.createForm, endPoint) { result in
+            switch result {
+            case .success(let data):
+                XCTAssertEqual(data, responseGoodsData)
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1)
+    }
 
 }

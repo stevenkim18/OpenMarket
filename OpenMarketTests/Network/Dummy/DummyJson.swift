@@ -71,4 +71,18 @@ struct DummyJson {
            ]
        }"
     """
+    static let successDetail = """
+    {
+        "images":["https://camp-open-market.s3.ap-northeast-2.amazonaws.com/images/FCEF4A2A-5D87-448A-B438-745C39C6D066.png"],
+        "currency":"KRW",
+        "descriptions":"제발 되라",
+        "id":331,
+        "discounted_price":99999,
+        "title":"다시하는 마음으로",
+        "stock":10,
+        "registration_date":1631188124.6062999,
+        "price":100000,
+        "thumbnails":["https://camp-open-market.s3.ap-northeast-2.amazonaws.com/thumbnails/FCEF4A2A-5D87-448A-B438-745C39C6D066.png"]
+    }
+    """
 }

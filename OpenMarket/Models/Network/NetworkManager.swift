@@ -58,7 +58,7 @@ struct NetworkManager {
         }.resume()
     }
     
-    private func generateUploadRequest(with form: MutipartForm, url: URL, _ endPoint: EndPoint) -> URLRequest{
+    private func generateUploadRequest(with form: MutipartForm, url: URL, _ endPoint: EndPoint) -> URLRequest {
         let boundary = "Boundary-\(UUID().uuidString)"
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "\(endPoint.httpMethod)"
