@@ -23,6 +23,8 @@
 		B078695B26E59E6D0069F5B2 /* OpenMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078695A26E59E6D0069F5B2 /* OpenMarketTests.swift */; };
 		B078696626E59E6D0069F5B2 /* OpenMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */; };
 		B078697826E5F8E00069F5B2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B078697726E5F8E00069F5B2 /* .swiftlint.yml */; };
+		B0C5B86C26E9D839006B4AF7 /* GoodsCreateForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C5B86B26E9D839006B4AF7 /* GoodsCreateForm.swift */; };
+		B0C5B86E26E9DE0E006B4AF7 /* GoodsUpdateForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C5B86D26E9DE0E006B4AF7 /* GoodsUpdateForm.swift */; };
 		B0D9BD6B26E6EDD5005115B3 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6A26E6EDD5005115B3 /* HttpMethod.swift */; };
 		B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */; };
 		B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */; };
@@ -76,6 +78,8 @@
 		B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMarketUITests.swift; sourceTree = "<group>"; };
 		B078696726E59E6D0069F5B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B078697726E5F8E00069F5B2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B0C5B86B26E9D839006B4AF7 /* GoodsCreateForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsCreateForm.swift; sourceTree = "<group>"; };
+		B0C5B86D26E9DE0E006B4AF7 /* GoodsUpdateForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsUpdateForm.swift; sourceTree = "<group>"; };
 		B0D9BD6A26E6EDD5005115B3 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		B0D9BD6C26E6EE6B005115B3 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		B0D9BD6F26E6F48E005115B3 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
@@ -286,6 +290,8 @@
 		B0D9BD7826E73FD5005115B3 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				B0C5B86B26E9D839006B4AF7 /* GoodsCreateForm.swift */,
+				B0C5B86D26E9DE0E006B4AF7 /* GoodsUpdateForm.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -544,12 +550,14 @@
 				B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */,
 				B0D9BD7226E6FA0E005115B3 /* NetworkManager.swift in Sources */,
 				B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */,
+				B0C5B86C26E9D839006B4AF7 /* GoodsCreateForm.swift in Sources */,
 				B0D9BD8426E75424005115B3 /* GoodsList.swift in Sources */,
 				B0D9BD7E26E7456E005115B3 /* BasicGoodsInfomation.swift in Sources */,
 				B0D9BD8026E74C00005115B3 /* GoodsDetailInfomation.swift in Sources */,
 				B078694426E59E6C0069F5B2 /* AppDelegate.swift in Sources */,
 				B0D9BD8226E750C2005115B3 /* GoodsBriefInformation.swift in Sources */,
 				B078694626E59E6C0069F5B2 /* SceneDelegate.swift in Sources */,
+				B0C5B86E26E9DE0E006B4AF7 /* GoodsUpdateForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

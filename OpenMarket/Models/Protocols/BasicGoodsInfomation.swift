@@ -8,10 +8,13 @@
 import Foundation
 
 protocol BasicGoodsInformation {
-    var title: String { get set }
-    var price: Int { get set }
-    var currency: String { get set }
-    var stock: Int { get set }
+    associatedtype StringType: Stringable
+    associatedtype IntType: Intable
+    
+    var title: StringType { get set }
+    var price: IntType { get set }
+    var currency: StringType { get set }
+    var stock: IntType { get set }
     var discountedPrice: Int? { get set }
 }
 
@@ -24,3 +27,20 @@ protocol ResponseGoodsInformation: Decodable, BasicGoodsInformation {
     var thumbnails: [String] { get set }
     var registrationData: Double { get set }
 }
+
+protocol RequestGoodsInformation: BasicGoodsInformation, Password, MutipartForm {
+    var descriptions: StringType { get set }
+    var images: [Data]? { get set }
+}
+
+protocol MutipartForm {
+    var mutipartFormData: [String: String] { get }
+}
+
+protocol Stringable {}
+protocol Intable {}
+
+extension String: Stringable {}
+extension Optional: Stringable where Wrapped == String {}
+extension Int: Intable {}
+extension Optional: Intable where Wrapped == Int {}
