@@ -8,7 +8,7 @@
 import Foundation
 
 enum ServerAPI {
-    static let baseURL = "https://camp-open-market-2.herokuapp.com/"
+    static let baseURL = "https://camp-open-market.herokuapp.com/"
     static let listPath = "items/"
     static let itemPath = "item/"
 }
