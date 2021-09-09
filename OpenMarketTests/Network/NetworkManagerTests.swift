@@ -30,6 +30,7 @@ class NetworkManagerTests: XCTestCase {
         
         MockURLProtocol.requestHandler = { request in
             XCTAssertEqual(request.url, readGoodsURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
             return (goodsDetailData, DummyHTTPURLResponse.success, nil)
         }
         
@@ -58,6 +59,7 @@ class NetworkManagerTests: XCTestCase {
         
         MockURLProtocol.requestHandler = { request in
             XCTAssertEqual(request.url, readListURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
             return (goodsListData, DummyHTTPURLResponse.success, nil)
         }
         
@@ -85,6 +87,7 @@ class NetworkManagerTests: XCTestCase {
         
         MockURLProtocol.requestHandler = { request in
             XCTAssertEqual(request.url, readListURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
             return (nil, nil, NetworkError.requestError)
         }
         
@@ -112,6 +115,7 @@ class NetworkManagerTests: XCTestCase {
         
         MockURLProtocol.requestHandler = { request in
             XCTAssertEqual(request.url, readListURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
             return (nil, nil, nil)
         }
         
@@ -139,6 +143,7 @@ class NetworkManagerTests: XCTestCase {
         
         MockURLProtocol.requestHandler = { request in
             XCTAssertEqual(request.url, readListURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
             return (nil, DummyHTTPURLResponse.fail, nil)
         }
         
@@ -166,6 +171,7 @@ class NetworkManagerTests: XCTestCase {
         
         MockURLProtocol.requestHandler = { request in
             XCTAssertEqual(request.url, readListURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
             return (nil, DummyHTTPURLResponse.success, nil)
         }
         
