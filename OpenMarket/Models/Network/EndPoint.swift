@@ -14,6 +14,7 @@ enum EndPoint {
     case updateItem(Int)
     case deleteItem(Int)
     
+    // TODO: 중복되는 케이스 합치기
     var url: String {
         switch self {
         case .readList(let page):
