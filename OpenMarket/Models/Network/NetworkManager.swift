@@ -38,7 +38,7 @@ struct NetworkManager {
         dataTask(with: urlRequest, completion: completion)
     }
     
-    func upload(form: MutipartForm, _ endPoint: EndPoint, completion: @escaping ResultHandler) {
+    func upload(form: MultipartForm, _ endPoint: EndPoint, completion: @escaping ResultHandler) {
         guard let url = URL(string: endPoint.url) else {
             return completion(.failure(.invalidURL))
         }
@@ -69,7 +69,7 @@ struct NetworkManager {
         }.resume()
     }
     
-    private func generateUploadRequest(with form: MutipartForm, url: URL, _ endPoint: EndPoint) -> URLRequest {
+    private func generateUploadRequest(with form: MultipartForm, url: URL, _ endPoint: EndPoint) -> URLRequest {
         let boundary = "Boundary-\(UUID().uuidString)"
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "\(endPoint.httpMethod)"
@@ -88,7 +88,7 @@ struct NetworkManager {
         return urlRequest
     }
     
-    private func createHttpBody(form: MutipartForm, boundary: String) -> Data {
+    private func createHttpBody(form: MultipartForm, boundary: String) -> Data {
         var data = Data()
         let boundaryPrefix = "--\(boundary)\r\n"
         

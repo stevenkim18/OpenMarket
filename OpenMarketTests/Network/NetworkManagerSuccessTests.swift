@@ -95,36 +95,36 @@ extension NetworkManagerTests {
         wait(for: [expectation], timeout: 1)
     }
     
-//    func test_NetworkManager_Success_상품수정을_요청했을떄_성공하고_변경된_json데이터를_응답한다() {
-//        // given
-//        let id = 100
-//        let endPoint = EndPoint.updateItem(id)
-//        let updateGoodsURL = URL(string: endPoint.url)
+    // TODO: 실제 httpbody 바디 파서를 구현해서 기존의 모델과 비교하고 업데이트한 값을 리턴하는 함수 구현
+    // 현재는 성공하는 데이터를 넘겨줌.
+    func test_NetworkManager_Success_상품수정을_요청했을떄_성공하고_변경된_json데이터를_응답한다() {
+        // given
+        let id = 100
+        let endPoint = EndPoint.updateItem(id)
+        let updateGoodsURL = URL(string: endPoint.url)
 //        let existingModel = DummyModel.makeDetailModel(with: id)
-//        let updateRequestModel = DummyModel.updateForm
-//
-//        MockURLProtocol.requestHandler = { request in
-//            XCTAssertEqual(request.url, updateGoodsURL)
-//            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
-//            XCTAssertFalse(request.extractHttpBody().isEmpty)
-//            let data = try? JSONEncoder().encode(existingModel)
-//
-//            return (data, DummyHTTPURLResponse.success, nil)
-//        }
-//
-//        let expectation = expectation(description: "upload success")
-//
-//        networkManager.upload(form: updateRequestModel, endPoint) { result in
-//            switch result {
-//            case .success(let data):
-//                XCTAssertEqual(data, nil)
-//            case .failure(let error):
-//                XCTFail(error.localizedDescription)
-//            }
-//            expectation.fulfill()
-//        }
-//
-//        wait(for: [expectation], timeout: 1)
-//    }
+        let updateRequestModel = DummyModel.updateForm
+
+        MockURLProtocol.requestHandler = { request in
+            XCTAssertEqual(request.url, updateGoodsURL)
+            XCTAssertEqual(request.httpMethod, "\(endPoint.httpMethod)")
+            XCTAssertFalse(request.extractHttpBody().isEmpty)
+            return (DummyJson.successDetail.data(using: .utf8), DummyHTTPURLResponse.success, nil)
+        }
+
+        let expectation = expectation(description: "upload success")
+
+        networkManager.upload(form: updateRequestModel, endPoint) { result in
+            switch result {
+            case .success(let data):
+                XCTAssertEqual(data, DummyJson.successDetail.data(using: .utf8))
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 1)
+    }
     
 }

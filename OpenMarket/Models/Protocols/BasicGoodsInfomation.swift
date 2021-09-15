@@ -28,7 +28,7 @@ protocol ResponseGoodsInformation: Decodable, BasicGoodsInformation {
     var registrationData: Double { get set }
 }
 
-protocol RequestGoodsInformation: BasicGoodsInformation, Password, MutipartForm {
+protocol RequestGoodsInformation: BasicGoodsInformation, Password, MultipartForm {
     var descriptions: StringType { get set }
 }
 
@@ -36,7 +36,7 @@ protocol Images {
     var images: [Data]? { get set }
 }
 
-protocol MutipartForm: Images {
+protocol MultipartForm: Images {
     var mutipartFormData: [String: String] { get }
 }
 
