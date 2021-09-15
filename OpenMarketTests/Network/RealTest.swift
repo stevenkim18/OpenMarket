@@ -11,7 +11,7 @@ import XCTest
 class RealTest: XCTestCase {
 
     func testUploadCreateForm() throws {
-        let imageData = UIImage(contentsOfFile: "/Users/steven/Desktop/xps.jpg")?.jpegData(compressionQuality: 1.0)
+        let imageData = UIImage(named: "sample")?.jpegData(compressionQuality: 1.0)
         
         let uploadForm = GoodsCreateForm(title: "다시하는 마음으로",
                                          descriptions: "제발 되라",
@@ -60,14 +60,15 @@ class RealTest: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
-    /// 1기 서버는 id와 패스워드를 같이 요청해야하다
+    /// 1기 서버는 id와 패스워드를 같이 요청해야한다
     /// 성공하면 응답으로 id만 온다.
     func testDeleteUpdateForm() throws {
-        let deleteForm = GoodsDeleteForm(password: "1234")
+        let id = 333
+        let deleteForm = GoodsDeleteForm(id: id, password: "1234")
         
         let expectation = expectation(description: "delete request")
         
-        NetworkManager().request(json: deleteForm, EndPoint.deleteItem(331)) { result in
+        NetworkManager().request(json: deleteForm, EndPoint.deleteItem(id)) { result in
             switch result {
             case .success(let data):
                 XCTAssertNil(String(decoding: data, as: UTF8.self))

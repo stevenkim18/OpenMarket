@@ -8,5 +8,6 @@
 import Foundation
 
 struct GoodsDeleteForm: Password, Encodable {
+    var id: Int
     var password: String
 }
