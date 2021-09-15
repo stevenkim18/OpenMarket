@@ -43,4 +43,4 @@ struct DummyModel {
     }
 }
 
-extension GoodsDetailInformation: Encodable {}
+//extension GoodsDetailInformation: Encodable {}

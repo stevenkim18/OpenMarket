@@ -21,11 +21,22 @@ struct NetworkManager {
             return completion(.failure(.invalidURL))
         }
         
-        let urlRequest = generateRequest(with: url, endPoint)
+        let urlRequest = URLRequest(url: url)
         dataTask(with: urlRequest, completion: completion)
     }
     
-//    func request(with jsonData: String)
+    func request<T: Encodable>(json: T, _ endPoint: EndPoint, completion: @escaping ResultHandler) {
+        guard let url = URL(string: endPoint.url) else {
+            return completion(.failure(.invalidURL))
+        }
+        
+        guard let data = try? JSONEncoder().encode(json) else {
+            return completion(.failure(.invalidURL))
+        }
+        
+        let urlRequest = generateRequest(with: url, jsonData: data, endPoint)
+        dataTask(with: urlRequest, completion: completion)
+    }
     
     func upload(form: MutipartForm, _ endPoint: EndPoint, completion: @escaping ResultHandler) {
         guard let url = URL(string: endPoint.url) else {
@@ -68,9 +79,12 @@ struct NetworkManager {
         return urlRequest
     }
     
-    private func generateRequest(with url: URL, _ endPoint: EndPoint) -> URLRequest {
+    private func generateRequest(with url: URL, jsonData: Data, _ endPoint: EndPoint) -> URLRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "\(endPoint.httpMethod)"
+        urlRequest.httpBody = jsonData
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         return urlRequest
     }
     

@@ -44,7 +44,7 @@ class RealTest: XCTestCase {
                                          stock: nil,
                                          discountedPrice: nil,
                                          images: nil,
-                                         password: "123")
+                                         password: "1234")
         
         let expectation = expectation(description: "upload")
         
@@ -59,4 +59,24 @@ class RealTest: XCTestCase {
         }
         wait(for: [expectation], timeout: 5)
     }
+    
+    /// 1기 서버는 id와 패스워드를 같이 요청해야하다
+    /// 성공하면 응답으로 id만 온다.
+    func testDeleteUpdateForm() throws {
+        let deleteForm = GoodsDeleteForm(password: "1234")
+        
+        let expectation = expectation(description: "delete request")
+        
+        NetworkManager().request(json: deleteForm, EndPoint.deleteItem(331)) { result in
+            switch result {
+            case .success(let data):
+                XCTAssertNil(String(decoding: data, as: UTF8.self))
+            case .failure(let error):
+                XCTAssertNil(error)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+    }
+    
 }

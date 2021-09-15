@@ -40,6 +40,7 @@
 		B0ED74B926EB236C00475F1C /* URLRequest+HTTPbody.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED74B826EB236C00475F1C /* URLRequest+HTTPbody.swift */; };
 		B0ED74BB26EB26E400475F1C /* NetworkManagerSuccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED74BA26EB26E400475F1C /* NetworkManagerSuccessTests.swift */; };
 		B0ED74BD26EB272F00475F1C /* NetworkManagerFailureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED74BC26EB272F00475F1C /* NetworkManagerFailureTests.swift */; };
+		B0ED74BF26EB605B00475F1C /* GoodsDeleteForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED74BE26EB605B00475F1C /* GoodsDeleteForm.swift */; };
 		B96AC4B4CABFCACA6390CFAC /* Pods_OpenMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580A83DAA70D94457E9323CE /* Pods_OpenMarket.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,7 @@
 		B0ED74B826EB236C00475F1C /* URLRequest+HTTPbody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+HTTPbody.swift"; sourceTree = "<group>"; };
 		B0ED74BA26EB26E400475F1C /* NetworkManagerSuccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerSuccessTests.swift; sourceTree = "<group>"; };
 		B0ED74BC26EB272F00475F1C /* NetworkManagerFailureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerFailureTests.swift; sourceTree = "<group>"; };
+		B0ED74BE26EB605B00475F1C /* GoodsDeleteForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsDeleteForm.swift; sourceTree = "<group>"; };
 		C5E913F1852FCCFFCF0F6AA3 /* Pods_OpenMarketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenMarketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA331902867DB774BF6482F0 /* Pods-OpenMarketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarketTests.release.xcconfig"; path = "Target Support Files/Pods-OpenMarketTests/Pods-OpenMarketTests.release.xcconfig"; sourceTree = "<group>"; };
 		F7EA2992138DD85B5418004A /* Pods-OpenMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenMarket.release.xcconfig"; path = "Target Support Files/Pods-OpenMarket/Pods-OpenMarket.release.xcconfig"; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 			children = (
 				B0C5B86B26E9D839006B4AF7 /* GoodsCreateForm.swift */,
 				B0C5B86D26E9DE0E006B4AF7 /* GoodsUpdateForm.swift */,
+				B0ED74BE26EB605B00475F1C /* GoodsDeleteForm.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				B0D9BD6B26E6EDD5005115B3 /* HttpMethod.swift in Sources */,
 				B0D9BD7426E72CC8005115B3 /* NetworkError.swift in Sources */,
 				B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */,
+				B0ED74BF26EB605B00475F1C /* GoodsDeleteForm.swift in Sources */,
 				B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */,
 				B0D9BD7226E6FA0E005115B3 /* NetworkManager.swift in Sources */,
 				B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */,
