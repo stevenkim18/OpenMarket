@@ -67,8 +67,8 @@ URLProtocol 사용해서 Mock 객체 만들기
 
 ```swift
 class MockURLProtocol: URLProtocol {
-	// Mock response을 전달할 타입을 선언한다.
-	static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?  
+  // Mock response을 전달할 타입을 선언한다.
+  static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?  
 
   override class func canInit(with request: URLRequest) -> Bool {
     // 외부에서 만들어지는 request를 처리할 수 있는지 여부
@@ -82,9 +82,9 @@ class MockURLProtocol: URLProtocol {
 
   // Mock response를 만들어서 URLClient에게 전달할 것 이 함수 안에서 해야 함.
   override func startLoading() {
-		guard let handler = MockURLProtocol.requestHandler else {
+	guard let handler = MockURLProtocol.requestHandler else {
 	    fatalError("Handler is unavailable.")
-	  }
+	}
     
 	  do {
 		  // 외부에서 만들어준 Mock response를 호출 한다.
@@ -115,11 +115,11 @@ URLProtocol을 채택한 Mock 객체에 보낼 response 만들기
 
 ```swift
 MockURLProtocol.requestHandler = { request in
-    // 네트워크 요철을 한 URLRequest가 넘어옴(여기서 request에 대한 테스트 진행 가능)
+	// 네트워크 요철을 한 URLRequest가 넘어옴(여기서 request에 대한 테스트 진행 가능)
     
-		// 가짜 응답을 만들어서 리턴함.
-		let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-		return (response, Data())
+	// 가짜 응답을 만들어서 리턴함.
+	let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+	return (response, Data())
 }
 ```
 
@@ -160,10 +160,11 @@ networkManager = NetworkManager(session: mockUrlSession)
 
     ```swift
     func request(_ endPoint: EndPoint, 
-    						 completion: @escaping ResultHandler)
+    		 completion: @escaping ResultHandler)
+		 
     func upload(form: MutipartForm, 
-    						_ endPoint: EndPoint, 
-    						completion: @escaping ResultHandler)
+    		_ endPoint: EndPoint, 
+    		completion: @escaping ResultHandler)
     ```
 
 ### 네트워크와 무관한 테스트를 할 때 MockURLSession을 만들까? URLProtocol을 사용할까?
@@ -202,9 +203,9 @@ URLProtocol
 
 ```swift
 override func startLoading() {
-        guard let handler = MockURLProtocol.requestHandler else {
-            XCTFail("Handler is unavailable.")
-            return
+	guard let handler = MockURLProtocol.requestHandler else {
+		XCTFail("Handler is unavailable.")
+		return
         }
         
         do {
@@ -246,7 +247,7 @@ override func startLoading() {
 
 ```swift
 guard let data = data, !data.isEmpty else {
-		return completion(.failure(.invalidData))
+	return completion(.failure(.invalidData))
 }
 ```
 
