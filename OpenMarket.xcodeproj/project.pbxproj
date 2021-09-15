@@ -20,7 +20,6 @@
 		B078694B26E59E6C0069F5B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B078694926E59E6C0069F5B2 /* Main.storyboard */; };
 		B078694D26E59E6D0069F5B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B078694C26E59E6D0069F5B2 /* Assets.xcassets */; };
 		B078695026E59E6D0069F5B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B078694E26E59E6D0069F5B2 /* LaunchScreen.storyboard */; };
-		B078695B26E59E6D0069F5B2 /* OpenMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078695A26E59E6D0069F5B2 /* OpenMarketTests.swift */; };
 		B078696626E59E6D0069F5B2 /* OpenMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */; };
 		B078697826E5F8E00069F5B2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B078697726E5F8E00069F5B2 /* .swiftlint.yml */; };
 		B0BD502126F1C71B00E7049C /* MultipartFormDataParser in Frameworks */ = {isa = PBXBuildFile; productRef = B0BD502026F1C71B00E7049C /* MultipartFormDataParser */; };
@@ -83,7 +82,6 @@
 		B078694F26E59E6D0069F5B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B078695126E59E6D0069F5B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B078695626E59E6D0069F5B2 /* OpenMarketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenMarketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B078695A26E59E6D0069F5B2 /* OpenMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMarketTests.swift; sourceTree = "<group>"; };
 		B078695C26E59E6D0069F5B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B078696126E59E6D0069F5B2 /* OpenMarketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenMarketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMarketUITests.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				B0D9BD7526E739BE005115B3 /* Network */,
-				B078695A26E59E6D0069F5B2 /* OpenMarketTests.swift */,
 				B078695C26E59E6D0069F5B2 /* Info.plist */,
 			);
 			path = OpenMarketTests;
@@ -620,7 +617,6 @@
 				B0269EDE26E8AFF300A478E1 /* NetworkManagerSetUp.swift in Sources */,
 				B0C5B87526EA3783006B4AF7 /* DummyModel.swift in Sources */,
 				B0ED74B926EB236C00475F1C /* URLRequest+HTTPbody.swift in Sources */,
-				B078695B26E59E6D0069F5B2 /* OpenMarketTests.swift in Sources */,
 				B0269EDC26E8AFEE00A478E1 /* MockURLProtocol.swift in Sources */,
 				B0269EE626E9062B00A478E1 /* NetworkError+Equatable.swift in Sources */,
 				B0269EDD26E8AFF100A478E1 /* DummyJson.swift in Sources */,

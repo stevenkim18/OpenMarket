@@ -17,5 +17,5 @@ struct GoodsDetailInformation: ResponseGoodsInformation {
     var discountedPrice: Int?
     var thumbnails: [String]
     var images: [String]
-    var registrationData: Double
+    var registrationDate: Double
 }

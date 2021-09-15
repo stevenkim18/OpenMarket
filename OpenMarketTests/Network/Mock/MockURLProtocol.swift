@@ -38,7 +38,6 @@ final class MockURLProtocol: URLProtocol {
                 client?.urlProtocol(self, didLoad: data)
             }
             
-            // TODO: 여기를 해줘야 함!!!!!!
             if let error = error {
                 client?.urlProtocol(self, didFailWithError: error)
             }

@@ -10,5 +10,5 @@ import Foundation
 protocol ResponseGoodsInformation: Decodable, BasicGoodsInformation {
     var id: Int { get set }
     var thumbnails: [String] { get set }
-    var registrationData: Double { get set }
+    var registrationDate: Double { get set }
 }

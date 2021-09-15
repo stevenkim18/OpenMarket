@@ -27,7 +27,7 @@ enum EndPoint {
     
     var httpMethod: HttpMethod {
         switch self {
-        case .readList, .readItem
+        case .readList, .readItem:
             return .get
         case .createItem:
             return .post
