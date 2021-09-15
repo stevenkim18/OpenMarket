@@ -24,6 +24,9 @@
 		B078696626E59E6D0069F5B2 /* OpenMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */; };
 		B078697826E5F8E00069F5B2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B078697726E5F8E00069F5B2 /* .swiftlint.yml */; };
 		B0BD502126F1C71B00E7049C /* MultipartFormDataParser in Frameworks */ = {isa = PBXBuildFile; productRef = B0BD502026F1C71B00E7049C /* MultipartFormDataParser */; };
+		B0BD502326F1EA4300E7049C /* ResponseGoodsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD502226F1EA4300E7049C /* ResponseGoodsInformation.swift */; };
+		B0BD502526F1EA6C00E7049C /* RequestGoodsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD502426F1EA6C00E7049C /* RequestGoodsInformation.swift */; };
+		B0BD502726F1EA9600E7049C /* MultipartForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD502626F1EA9600E7049C /* MultipartForm.swift */; };
 		B0C5B86C26E9D839006B4AF7 /* GoodsCreateForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C5B86B26E9D839006B4AF7 /* GoodsCreateForm.swift */; };
 		B0C5B86E26E9DE0E006B4AF7 /* GoodsUpdateForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C5B86D26E9DE0E006B4AF7 /* GoodsUpdateForm.swift */; };
 		B0C5B87126EA1FC1006B4AF7 /* Data+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C5B87026EA1FC1006B4AF7 /* Data+String.swift */; };
@@ -86,6 +89,9 @@
 		B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMarketUITests.swift; sourceTree = "<group>"; };
 		B078696726E59E6D0069F5B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B078697726E5F8E00069F5B2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B0BD502226F1EA4300E7049C /* ResponseGoodsInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseGoodsInformation.swift; sourceTree = "<group>"; };
+		B0BD502426F1EA6C00E7049C /* RequestGoodsInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGoodsInformation.swift; sourceTree = "<group>"; };
+		B0BD502626F1EA9600E7049C /* MultipartForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartForm.swift; sourceTree = "<group>"; };
 		B0C5B86B26E9D839006B4AF7 /* GoodsCreateForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsCreateForm.swift; sourceTree = "<group>"; };
 		B0C5B86D26E9DE0E006B4AF7 /* GoodsUpdateForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsUpdateForm.swift; sourceTree = "<group>"; };
 		B0C5B87026EA1FC1006B4AF7 /* Data+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+String.swift"; sourceTree = "<group>"; };
@@ -340,6 +346,9 @@
 			isa = PBXGroup;
 			children = (
 				B0D9BD7D26E7456E005115B3 /* BasicGoodsInfomation.swift */,
+				B0BD502226F1EA4300E7049C /* ResponseGoodsInformation.swift */,
+				B0BD502426F1EA6C00E7049C /* RequestGoodsInformation.swift */,
+				B0BD502626F1EA9600E7049C /* MultipartForm.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -582,12 +591,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0D9BD6B26E6EDD5005115B3 /* HttpMethod.swift in Sources */,
+				B0BD502526F1EA6C00E7049C /* RequestGoodsInformation.swift in Sources */,
 				B0D9BD7426E72CC8005115B3 /* NetworkError.swift in Sources */,
 				B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */,
+				B0BD502726F1EA9600E7049C /* MultipartForm.swift in Sources */,
 				B0ED74BF26EB605B00475F1C /* GoodsDeleteForm.swift in Sources */,
 				B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */,
 				B0D9BD7226E6FA0E005115B3 /* NetworkManager.swift in Sources */,
 				B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */,
+				B0BD502326F1EA4300E7049C /* ResponseGoodsInformation.swift in Sources */,
 				B0C5B86C26E9D839006B4AF7 /* GoodsCreateForm.swift in Sources */,
 				B0C5B87126EA1FC1006B4AF7 /* Data+String.swift in Sources */,
 				B0D9BD8426E75424005115B3 /* GoodsList.swift in Sources */,

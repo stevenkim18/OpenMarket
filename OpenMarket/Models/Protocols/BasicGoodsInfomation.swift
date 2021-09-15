@@ -18,28 +18,6 @@ protocol BasicGoodsInformation {
     var discountedPrice: Int? { get set }
 }
 
-protocol Password {
-    var password: String { get set }
-}
-
-protocol ResponseGoodsInformation: Decodable, BasicGoodsInformation {
-    var id: Int { get set }
-    var thumbnails: [String] { get set }
-    var registrationData: Double { get set }
-}
-
-protocol RequestGoodsInformation: BasicGoodsInformation, Password, MultipartForm {
-    var descriptions: StringType { get set }
-}
-
-protocol Images {
-    var images: [Data]? { get set }
-}
-
-protocol MultipartForm: Images {
-    var mutipartFormData: [String: String] { get }
-}
-
 protocol Stringable {}
 protocol Intable {}
 
@@ -47,5 +25,3 @@ extension String: Stringable {}
 extension Optional: Stringable where Wrapped == String {}
 extension Int: Intable {}
 extension Optional: Intable where Wrapped == Int {}
-
-// TODO: 파일 분리
