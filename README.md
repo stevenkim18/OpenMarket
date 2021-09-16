@@ -276,4 +276,4 @@ extension String: Stringable {}
 extension Optional: Stringable where Wrapped == String {}
 ```
 
-옵셔널도 하나의 구조체이기 그 안에 제너릭으로 타입이 들어오는 것이다. `where` 절을 사용해서 이를 강제해주면 해결된다.
+옵셔널도 하나의 열거형이기 그 안에 제너릭으로 타입이 들어오는 것이다. `where` 절을 사용해서 이를 강제해주면 해결된다.
