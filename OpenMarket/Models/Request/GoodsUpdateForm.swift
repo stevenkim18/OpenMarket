@@ -17,7 +17,7 @@ struct GoodsUpdateForm: RequestGoodsInformation {
     var images: [Data]?
     var password: String
     
-    var mutipartFormData: [String: String] {
+    var multipartFormData: [String: String] {
         var datas: [String: String] = [:]
         
         if let title = title {

@@ -12,5 +12,5 @@ protocol Images {
 }
 
 protocol MultipartForm: Images {
-    var mutipartFormData: [String: String] { get }
+    var multipartFormData: [String: String] { get }
 }

@@ -92,7 +92,7 @@ struct NetworkManager {
         var data = Data()
         let boundaryPrefix = "--\(boundary)\r\n"
         
-        for (key, value) in form.mutipartFormData {
+        for (key, value) in form.multipartFormData {
             data.appendString(boundaryPrefix)
             data.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
             data.appendString("\(value)\r\n")
