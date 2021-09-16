@@ -25,6 +25,8 @@
 테스트 커버리지
 ![테스트 커버리지](https://user-images.githubusercontent.com/35272802/133461915-db2fe7de-d838-44ad-bd68-947b6eff224b.png)
 
+---
+
 ## 🔑 학습 키워드
 
 - URLSession
@@ -33,6 +35,8 @@
 - Test Double
 - protocol associated type
 - URLProtocol
+
+---
 
 ## 📖 학습 내용
 
@@ -134,6 +138,8 @@ networkManager = NetworkManager(session: mockUrlSession)
 
 - 이렇게 세팅을 마치고 urlSession을 기존과 동일한 방식으로 요청을 하면 Mock 객체를 사용해서 미리 설정해둔 응답과 데이터 전달이 된다. → 이렇게 하면 네트워크에 의존하지 않는 테스트를 할 수 있다.
 
+---
+
 ## 🤔 고민한 점
 
 ### 요청 응답 모델을 어떻게 구현 할까? 어디까지 나눌까?
@@ -188,6 +194,8 @@ URLProtocol
 3. 업데이트 된 상품 정보를 다시 json 형식으로 변환해서 클라이언트에서 넘겨준다.
 
 이러한 작업을 `MockURLProtocol.requestHandler` 안에서 해주어야 한다. 그럴러면 `multipart/form-data` 형식으로 오는 httpbody를 파싱을 해서 위에서 언급한 프로세스를 진행해야 한다. 직접 구현하기는 시간이 오려 걸려서 [오픈 소스](https://github.com/417-72KI/MultipartFormDataParser)를 찾아봤다. 시도를 해봤지만 내가 만든 형식과 맞지 않는지.. 계속 유효하지 않는 형식이라는 에러가 나서 일단 더미 데이터를 넘기는 테스트로 남겨두었다. 나중에 시간이 되면 오픈 소스 코드를 보고 서라도 직접 구현해서 테스트를 진행해 봐야겠다.
+
+---
 
 ## 🚧 트러블 슈팅
 
