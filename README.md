@@ -36,7 +36,7 @@
 
 ## 📖 학습 내용
 
-### Muti-Part/form-data
+### Multi-Part/form-data
 
 Html코드를 사용해서 서버로 데이터를 보낼 때 `<form>` 태그를 사용해서 보낸다. `<form>` 속성에는 `enctype` 있는데 http 메소드에서 POST로 보낼 때 http body에 들어갈 데이터의 형식을 지정해 주는 속성이다. 디폴트 값은 `application/x-www-form-urlencoded` 이다. 이 속성은 key-value형식으로 보내기 용이하다(&를 구분자로 사용한다.) 하지만 이미지나 파일과 같은 바이너리 데이터는 보낼 수가 없다(이미지도 내부적으로는 숫자로 되어있고 엄청 긴 바이너리 코드로 되어 있다). 그래서 사용되는 속성이 `multipart/form-data` 이다.
 
