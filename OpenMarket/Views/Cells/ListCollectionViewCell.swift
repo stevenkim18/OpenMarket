@@ -16,16 +16,38 @@ class ListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var discountedPriceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        thumbnailImageView.image = nil
+    }
+    
     static func nib() -> UINib {
         return UINib(nibName: "ListCollectionViewCell", bundle: nil)
     }
     
     func configure(with goods: GoodsBriefInfomation) {
-        self.thumbnailImageView.image = UIImage(systemName: "photo")
+        self.thumbnailImageView.loadImage(with: goods.thumbnails.first)
         self.titleLabel.text = goods.title
         self.stockLabel.text = "재고: \(goods.stock)"
         self.discountedPriceLabel.text = "\(goods.discountedPrice)"
         self.priceLabel.text = "\(goods.price)"
     }
 
+}
+
+extension UIImageView {
+    func loadImage(with url: String?) {
+        guard let url = URL(string: url ?? "") else {
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else {
+                return
+            }
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }.resume()
+    }
 }

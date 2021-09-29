@@ -17,12 +17,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpCollectionView()
+        fetchFirstPageData()
+    }
+    
+    private func setUpCollectionView() {
         goodsCollectionView.dataSource = self
         goodsCollectionView.delegate = self
-//        goodsCollectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
         goodsCollectionView.register(ListCollectionViewCell.nib(), forCellWithReuseIdentifier: "listCollectionViewCell")
-        // 초기 데이터 로딩
-        fetchFirstPageData()
     }
     
     func fetchFirstPageData() {
@@ -62,4 +64,10 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         return cell
     }
     
+}
+
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height / 8)
+    }
 }
