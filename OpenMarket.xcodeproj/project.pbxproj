@@ -22,7 +22,8 @@
 		B078695026E59E6D0069F5B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B078694E26E59E6D0069F5B2 /* LaunchScreen.storyboard */; };
 		B078696626E59E6D0069F5B2 /* OpenMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */; };
 		B078697826E5F8E00069F5B2 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B078697726E5F8E00069F5B2 /* .swiftlint.yml */; };
-		B0BD502126F1C71B00E7049C /* MultipartFormDataParser in Frameworks */ = {isa = PBXBuildFile; productRef = B0BD502026F1C71B00E7049C /* MultipartFormDataParser */; };
+		B094E55A270434E00063AA96 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094E558270434E00063AA96 /* ListCollectionViewCell.swift */; };
+		B094E55B270434E00063AA96 /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B094E559270434E00063AA96 /* ListCollectionViewCell.xib */; };
 		B0BD502326F1EA4300E7049C /* ResponseGoodsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD502226F1EA4300E7049C /* ResponseGoodsInformation.swift */; };
 		B0BD502526F1EA6C00E7049C /* RequestGoodsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD502426F1EA6C00E7049C /* RequestGoodsInformation.swift */; };
 		B0BD502726F1EA9600E7049C /* MultipartForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD502626F1EA9600E7049C /* MultipartForm.swift */; };
@@ -87,6 +88,8 @@
 		B078696526E59E6D0069F5B2 /* OpenMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMarketUITests.swift; sourceTree = "<group>"; };
 		B078696726E59E6D0069F5B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B078697726E5F8E00069F5B2 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B094E558270434E00063AA96 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
+		B094E559270434E00063AA96 /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
 		B0BD502226F1EA4300E7049C /* ResponseGoodsInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseGoodsInformation.swift; sourceTree = "<group>"; };
 		B0BD502426F1EA6C00E7049C /* RequestGoodsInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGoodsInformation.swift; sourceTree = "<group>"; };
 		B0BD502626F1EA9600E7049C /* MultipartForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartForm.swift; sourceTree = "<group>"; };
@@ -121,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BD502126F1C71B00E7049C /* MultipartFormDataParser in Frameworks */,
 				B96AC4B4CABFCACA6390CFAC /* Pods_OpenMarket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,6 +216,7 @@
 				B0D9BD6E26E6F47C005115B3 /* Constants */,
 				B0D9BD6726E6E9F1005115B3 /* Controllers */,
 				B0D9BD6826E6ECBF005115B3 /* Models */,
+				B094E5562704342C0063AA96 /* Views */,
 				B078694926E59E6C0069F5B2 /* Main.storyboard */,
 				B0D9BD6626E6E709005115B3 /* Resources */,
 				B0D9BD6526E6E6E1005115B3 /* SupportingFiles */,
@@ -237,6 +240,23 @@
 				B078696726E59E6D0069F5B2 /* Info.plist */,
 			);
 			path = OpenMarketUITests;
+			sourceTree = "<group>";
+		};
+		B094E5562704342C0063AA96 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B094E557270434430063AA96 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B094E557270434430063AA96 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B094E558270434E00063AA96 /* ListCollectionViewCell.swift */,
+				B094E559270434E00063AA96 /* ListCollectionViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		B0C5B86F26EA1FA1006B4AF7 /* Extensions */ = {
@@ -379,7 +399,6 @@
 			);
 			name = OpenMarket;
 			packageProductDependencies = (
-				B0BD502026F1C71B00E7049C /* MultipartFormDataParser */,
 			);
 			productName = OpenMarket;
 			productReference = B078694026E59E6C0069F5B2 /* OpenMarket.app */;
@@ -473,6 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B094E55B270434E00063AA96 /* ListCollectionViewCell.xib in Resources */,
 				B078697826E5F8E00069F5B2 /* .swiftlint.yml in Resources */,
 				B078695026E59E6D0069F5B2 /* LaunchScreen.storyboard in Resources */,
 				B078694D26E59E6D0069F5B2 /* Assets.xcassets in Resources */,
@@ -593,6 +613,7 @@
 				B0D9BD7026E6F48E005115B3 /* ServerAPI.swift in Sources */,
 				B0BD502726F1EA9600E7049C /* MultipartForm.swift in Sources */,
 				B0ED74BF26EB605B00475F1C /* GoodsDeleteForm.swift in Sources */,
+				B094E55A270434E00063AA96 /* ListCollectionViewCell.swift in Sources */,
 				B078694826E59E6C0069F5B2 /* ViewController.swift in Sources */,
 				B0D9BD7226E6FA0E005115B3 /* NetworkManager.swift in Sources */,
 				B0D9BD6D26E6EE6B005115B3 /* EndPoint.swift in Sources */,
@@ -964,14 +985,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		B0BD502026F1C71B00E7049C /* MultipartFormDataParser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B0BD501D26F1BEDA00E7049C /* XCRemoteSwiftPackageReference "MultipartFormDataParser" */;
-			productName = MultipartFormDataParser;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B078693826E59E6C0069F5B2 /* Project object */;
 }
