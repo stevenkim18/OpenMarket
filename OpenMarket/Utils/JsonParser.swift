@@ -15,7 +15,7 @@ struct JsonParser {
         jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     
-    func decode<T: Codable>(with data: Data, by type: T.Type) -> T? {
+    func decode<T: Decodable>(with data: Data, by type: T.Type) -> T? {
         guard let instance = try? jsonDecoder.decode(T.self, from: data) else {
             return nil
         }

@@ -10,6 +10,7 @@ import Foundation
 typealias ResultHandler = (Result<Data, NetworkError>) -> Void
 
 struct NetworkManager {
+    static let shared = NetworkManager()
     let session: URLSession
     
     init(session: URLSession = .shared) {
