@@ -18,17 +18,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
-        fetchFirstPageData()
+        loadingView.startAnimating()
+        fetchgoodsData()
     }
     
     private func setUpCollectionView() {
         goodsCollectionView.dataSource = self
         goodsCollectionView.delegate = self
+        goodsCollectionView.prefetchDataSource = self
         goodsCollectionView.register(ListCollectionViewCell.nib(), forCellWithReuseIdentifier: "listCollectionViewCell")
     }
     
-    func fetchFirstPageData() {
-        loadingView.startAnimating()
+    func fetchgoodsData() {
         NetworkManager.shared.request(EndPoint.readList(lastLoadedPage)) { [weak self] result in
             switch result {
             case .success(let data):
@@ -39,11 +40,23 @@ class ViewController: UIViewController {
                         self?.loadingView.stopAnimating()
                         self?.loadingView.isHidden = true
                     }
+                    self?.lastLoadedPage += 1
                     print("성공")
                 }
             case .failure(let error):
                 print("실패")
                 break
+            }
+        }
+    }
+}
+
+extension ViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        print("prefetchItemsAt \(indexPaths)")
+        for indexPath in indexPaths {
+            if indexPath.item == self.goods.count - 1 {
+                fetchgoodsData()
             }
         }
     }
