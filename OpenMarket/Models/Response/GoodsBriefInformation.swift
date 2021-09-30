@@ -16,4 +16,16 @@ struct GoodsBriefInfomation: ResponseGoodsInformation {
     var discountedPrice: Int?
     var thumbnails: [String]
     var registrationDate: Double
+    
+    var stockText: String {
+        return "잔여수량: \(stock)"
+    }
+    
+    var priceText: String {
+        return "\(currency) \(price) "
+    }
+    
+    var discountedPriceText: String {
+        return "\(currency) \(discountedPrice!) "
+    }
 }

@@ -18,7 +18,9 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        thumbnailImageView.image = nil
+        self.thumbnailImageView.image = nil
+        self.priceLabel.textColor = UIColor.lightGray
+        self.priceLabel.removeCancelLine()
     }
     
     static func nib() -> UINib {
@@ -28,11 +30,40 @@ class ListCollectionViewCell: UICollectionViewCell {
     func configure(with goods: GoodsBriefInfomation) {
         self.thumbnailImageView.loadImage(with: goods.thumbnails.first)
         self.titleLabel.text = goods.title
-        self.stockLabel.text = "재고: \(goods.stock)"
-        self.discountedPriceLabel.text = "\(goods.discountedPrice)"
-        self.priceLabel.text = "\(goods.price)"
+        self.stockLabel.text = goods.stockText
+        self.priceLabel.text = goods.priceText
+        setPriceLabel(by: goods)
+    }
+    
+    private func setPriceLabel(by goods: GoodsBriefInfomation) {
+        if goods.discountedPrice != nil {
+            self.discountedPriceLabel.text = goods.discountedPriceText
+            self.discountedPriceLabel.isHidden = false
+            self.priceLabel.textColor = UIColor.red
+            self.priceLabel.drawCancelLine()
+        } else {
+            self.discountedPriceLabel.isHidden = true
+        }
     }
 
+}
+
+extension UILabel {
+    func drawCancelLine() {
+        let attributeString = NSMutableAttributedString(string: self.text!)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle,
+                                     value: NSUnderlineStyle.single.rawValue,
+                                     range: NSRange(location: 0,
+                                                    length: self.text?.count ?? 0))
+        self.attributedText = attributeString
+    }
+    
+    func removeCancelLine() {
+        let attributeString = NSMutableAttributedString(string: self.text!)
+        attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle,
+                                        range: NSRange(location: 0, length: self.text?.count ?? 0))
+        self.attributedText = attributeString
+    }
 }
 
 extension UIImageView {
