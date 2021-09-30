@@ -30,13 +30,19 @@ class ViewController: UIViewController {
     }
     
     func fetchgoodsData() {
+        let firstIndexPath = 20 * (self.lastLoadedPage - 1)
+        print("fetchgoodsData \(lastLoadedPage)")
         NetworkManager.shared.request(EndPoint.readList(lastLoadedPage)) { [weak self] result in
             switch result {
             case .success(let data):
                 if let goodsList = JsonParser.shared.decode(with: data, by: GoodsList.self) {
                     self?.goods.append(contentsOf: goodsList.items)
                     DispatchQueue.main.async {
-                        self?.goodsCollectionView.reloadData()
+//                        self?.goodsCollectionView.reloadData()
+                        self?.goodsCollectionView.performBatchUpdates {
+                            let indexPaths = (firstIndexPath..<(firstIndexPath + 20)).map { IndexPath(item: $0, section: 0) }
+                            self?.goodsCollectionView.insertItems(at: indexPaths)
+                        }
                         self?.loadingView.stopAnimating()
                         self?.loadingView.isHidden = true
                     }
@@ -63,6 +69,12 @@ extension ViewController: UICollectionViewDataSourcePrefetching {
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        if indexPath.item == self.goods.count - 1 {
+//            print("willDisplay \(indexPath.item)")
+//            fetchgoodsData()
+//        }
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return goods.count
     }
