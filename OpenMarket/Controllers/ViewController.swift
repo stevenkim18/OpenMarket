@@ -93,6 +93,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
                                                             for: indexPath) as? ListCollectionViewCell else {
             return UICollectionViewCell()
         }
+        cell.layer.drawBottomBorder()
         cell.configure(with: goods[indexPath.item])
         return cell
     }
@@ -102,5 +103,9 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height / 8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

@@ -18,7 +18,13 @@ struct GoodsBriefInfomation: ResponseGoodsInformation {
     var registrationDate: Double
     
     var stockText: String {
-        return "잔여수량: \(stock)"
+        if stock == 0 {
+            return "품절"
+        } else if stock > 999 {
+            return "잔여수량: 999+"
+        } else {
+            return "잔여수량: \(stock)"
+        }
     }
     
     var priceText: String {

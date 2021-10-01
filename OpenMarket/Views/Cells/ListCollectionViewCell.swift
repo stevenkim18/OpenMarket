@@ -18,7 +18,8 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.thumbnailImageView.image = nil
+        self.thumbnailImageView.image = UIImage(systemName: "photo")
+        self.stockLabel.textColor = UIColor.lightGray
         self.priceLabel.textColor = UIColor.lightGray
         self.priceLabel.removeCancelLine()
     }
@@ -30,9 +31,16 @@ class ListCollectionViewCell: UICollectionViewCell {
     func configure(with goods: GoodsBriefInfomation) {
         self.thumbnailImageView.loadImage(with: goods.thumbnails.first)
         self.titleLabel.text = goods.title
-        self.stockLabel.text = goods.stockText
         self.priceLabel.text = goods.priceText
+        setStockLabel(by: goods)
         setPriceLabel(by: goods)
+    }
+    
+    private func setStockLabel(by goods: GoodsBriefInfomation) {
+        if goods.stock == 0 {
+            self.stockLabel.textColor = UIColor.systemYellow
+        }
+        self.stockLabel.text = goods.stockText
     }
     
     private func setPriceLabel(by goods: GoodsBriefInfomation) {
@@ -80,5 +88,14 @@ extension UIImageView {
                 self.image = image
             }
         }.resume()
+    }
+}
+
+extension CALayer {
+    func drawBottomBorder() {
+        let border = CALayer()
+        border.frame = CGRect.init(x: 0, y: frame.height - 1.0, width: frame.width, height: 1.0)
+        border.backgroundColor = UIColor.gray.cgColor
+        self.addSublayer(border)
     }
 }
