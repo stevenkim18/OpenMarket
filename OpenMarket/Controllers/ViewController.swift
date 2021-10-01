@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         
         if isFetching { return }
         isFetching = true
-        print("fetchgoodsData \(lastLoadedPage)")
         NetworkManager.shared.request(EndPoint.readList(lastLoadedPage)) { [weak self] result in
             switch result {
             case .success(let data):
@@ -52,7 +51,6 @@ class ViewController: UIViewController {
                         self?.loadingView.isHidden = true
                     }
                     self?.lastLoadedPage += 1
-                    print("성공")
                 }
             case .failure(_):
                 print("실패")
@@ -65,10 +63,8 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        print("prefetchItemsAt \(indexPaths)")
         for indexPath in indexPaths {
             if indexPath.item == self.goods.count - 1 {
-                print("fetchgoodsData() \(indexPath.item) ")
                 fetchgoodsData()
             }
         }
@@ -78,10 +74,8 @@ extension ViewController: UICollectionViewDataSourcePrefetching {
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.item == self.goods.count - 1 {
-            print("willDisplay \(indexPath.item)")
             fetchgoodsData()
         }
-//        print("\(goodsCollectionView.contentOffset)")
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return goods.count
@@ -102,7 +96,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height / 8)
+        return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height / 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
