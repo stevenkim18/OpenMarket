@@ -11,6 +11,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var goodsCollectionView: UICollectionView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    private let refreshControl = UIRefreshControl()
     
     var goods: [GoodsBriefInfomation] = []
     var lastLoadedPage: Int = 1
@@ -20,19 +21,35 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setUpCollectionView()
         loadingView.startAnimating()
-        fetchgoodsData()
+        fetchgoodsData {
+            self.loadingView.stopAnimating()
+            self.loadingView.isHidden = true
+        }
     }
     
     private func setUpCollectionView() {
         goodsCollectionView.dataSource = self
         goodsCollectionView.delegate = self
         goodsCollectionView.prefetchDataSource = self
-        goodsCollectionView.register(ListCollectionViewCell.nib(), forCellWithReuseIdentifier: "listCollectionViewCell")
+        goodsCollectionView.register(ListCollectionViewCell.nib(),
+                                     forCellWithReuseIdentifier: "listCollectionViewCell")
+        
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "새로고침")
+        goodsCollectionView.alwaysBounceVertical = true
+        goodsCollectionView.refreshControl = refreshControl
     }
     
-    func fetchgoodsData() {
-//        let firstIndexPath = 20 * (self.lastLoadedPage - 1)
-        
+    @objc private func didPullToRefresh(_ sender: Any) {
+        goods.removeAll()
+        lastLoadedPage = 1
+        isFetching = false
+        fetchgoodsData {
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
+    func fetchgoodsData(handler: (() -> Void)?) {
         if isFetching { return }
         isFetching = true
         NetworkManager.shared.request(EndPoint.readList(lastLoadedPage)) { [weak self] result in
@@ -47,8 +64,13 @@ class ViewController: UIViewController {
 //                            let indexPaths = (firstIndexPath..<(firstIndexPath + 20)).map { IndexPath(item: $0, section: 0) }
 //                            self?.goodsCollectionView.insertItems(at: indexPaths)
 //                        }
-                        self?.loadingView.stopAnimating()
-                        self?.loadingView.isHidden = true
+//                        self?.loadingView.stopAnimating()
+//                        self?.loadingView.isHidden = true
+//                        self?.refreshControl.endRefreshing()
+                        guard let handler = handler else {
+                            return
+                        }
+                        handler()
                     }
                     self?.lastLoadedPage += 1
                 }
@@ -62,44 +84,55 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UICollectionViewDataSourcePrefetching {
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+    func collectionView(_ collectionView: UICollectionView,
+                        prefetchItemsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             if indexPath.item == self.goods.count - 1 {
-                fetchgoodsData()
+                fetchgoodsData(handler: nil)
             }
         }
     }
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
         if indexPath.item == self.goods.count - 1 {
-            fetchgoodsData()
+            fetchgoodsData(handler: nil)
         }
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return goods.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier,
                                                             for: indexPath) as? ListCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.layer.drawBottomBorder()
-        cell.configure(with: goods[indexPath.item])
+        if !goods.isEmpty {
+            cell.configure(with: goods[indexPath.item])
+        }
         return cell
     }
     
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height / 8)
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width,
+                      height: collectionView.frame.size.height / 8)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
 }

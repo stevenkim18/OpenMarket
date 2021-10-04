@@ -94,7 +94,10 @@ extension UIImageView {
 extension CALayer {
     func drawBottomBorder() {
         let border = CALayer()
-        border.frame = CGRect.init(x: 0, y: frame.height - 1.0, width: frame.width, height: 1.0)
+        border.frame = CGRect.init(x: 0,
+                                   y: frame.height - 1.0,
+                                   width: frame.width,
+                                   height: 1.0)
         border.backgroundColor = UIColor.gray.cgColor
         self.addSublayer(border)
     }
