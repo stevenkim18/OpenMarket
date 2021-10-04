@@ -13,7 +13,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     private let refreshControl = UIRefreshControl()
     
-    var goods: [GoodsBriefInfomation] = []
+    var goods: [GoodsBriefInfomation] = [] {
+        didSet(oldValue) {
+            print("old \(oldValue.count) new \(goods.count)")
+            DispatchQueue.main.async {
+                if self.goods.isEmpty {
+                    self.goodsCollectionView.reloadData()
+                    return
+                }
+                let indexPaths = (oldValue.count..<self.goods.count).map {
+                    IndexPath(item: $0, section: 0)
+                }
+                self.goodsCollectionView.insertItems(at: indexPaths)
+            }
+        }
+    }
     var lastLoadedPage: Int = 1
     var isFetching: Bool = false
     
@@ -59,14 +73,6 @@ class ViewController: UIViewController {
                    goodsList.items.count != 0 {
                     self?.goods.append(contentsOf: goodsList.items)
                     DispatchQueue.main.async {
-                        self?.goodsCollectionView.reloadData()
-//                        self?.goodsCollectionView.performBatchUpdates {
-//                            let indexPaths = (firstIndexPath..<(firstIndexPath + 20)).map { IndexPath(item: $0, section: 0) }
-//                            self?.goodsCollectionView.insertItems(at: indexPaths)
-//                        }
-//                        self?.loadingView.stopAnimating()
-//                        self?.loadingView.isHidden = true
-//                        self?.refreshControl.endRefreshing()
                         guard let handler = handler else {
                             return
                         }
@@ -114,9 +120,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
             return UICollectionViewCell()
         }
         cell.layer.drawBottomBorder()
-        if !goods.isEmpty {
-            cell.configure(with: goods[indexPath.item])
-        }
+        cell.configure(with: goods[indexPath.item])
         return cell
     }
     
