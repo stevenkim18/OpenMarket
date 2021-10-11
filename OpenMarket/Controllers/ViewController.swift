@@ -46,9 +46,11 @@ class ViewController: UIViewController {
         goodsCollectionView.delegate = self
         goodsCollectionView.prefetchDataSource = self
         goodsCollectionView.register(ListCollectionViewCell.nib(),
-                                     forCellWithReuseIdentifier: "listCollectionViewCell")
+                                     forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
         
-        refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(self,
+                                 action: #selector(didPullToRefresh(_:)),
+                                 for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "새로고침")
         goodsCollectionView.alwaysBounceVertical = true
         goodsCollectionView.refreshControl = refreshControl
@@ -92,10 +94,8 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView,
                         prefetchItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            if indexPath.item == self.goods.count - 1 {
-                fetchgoodsData(handler: nil)
-            }
+        for indexPath in indexPaths where indexPath.item == self.goods.count - 1 {
+            fetchgoodsData(handler: nil)
         }
     }
 }

@@ -15,13 +15,21 @@ class ListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var stockLabel: UILabel!
     @IBOutlet weak var discountedPriceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    var dataTask: URLSessionDataTask?
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        dataTask?.cancel()
         self.thumbnailImageView.image = UIImage(systemName: "photo")
         self.stockLabel.textColor = UIColor.lightGray
         self.priceLabel.textColor = UIColor.lightGray
         self.priceLabel.removeCancelLine()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+//        self.titleLabel.sizeToFit()
+//        self.titleLabel.layoutIfNeeded()
     }
     
     static func nib() -> UINib {
@@ -29,7 +37,8 @@ class ListCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with goods: GoodsBriefInfomation) {
-        self.thumbnailImageView.loadImage(with: goods.thumbnails.first)
+        dataTask?.cancel()
+        dataTask = self.thumbnailImageView.loadImage(with: goods.thumbnails.first)
         self.titleLabel.text = goods.title
         self.priceLabel.text = goods.priceText
         setStockLabel(by: goods)
@@ -54,51 +63,4 @@ class ListCollectionViewCell: UICollectionViewCell {
         }
     }
 
-}
-
-extension UILabel {
-    func drawCancelLine() {
-        let attributeString = NSMutableAttributedString(string: self.text!)
-        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle,
-                                     value: NSUnderlineStyle.single.rawValue,
-                                     range: NSRange(location: 0,
-                                                    length: self.text?.count ?? 0))
-        self.attributedText = attributeString
-    }
-    
-    func removeCancelLine() {
-        let attributeString = NSMutableAttributedString(string: self.text!)
-        attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle,
-                                        range: NSRange(location: 0, length: self.text?.count ?? 0))
-        self.attributedText = attributeString
-    }
-}
-
-extension UIImageView {
-    func loadImage(with url: String?) {
-        guard let url = URL(string: url ?? "") else {
-            return
-        }
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data else {
-                return
-            }
-            let image = UIImage(data: data)
-            DispatchQueue.main.async {
-                self.image = image
-            }
-        }.resume()
-    }
-}
-
-extension CALayer {
-    func drawBottomBorder() {
-        let border = CALayer()
-        border.frame = CGRect.init(x: 0,
-                                   y: frame.height - 1.0,
-                                   width: frame.width,
-                                   height: 1.0)
-        border.backgroundColor = UIColor.gray.cgColor
-        self.addSublayer(border)
-    }
 }
