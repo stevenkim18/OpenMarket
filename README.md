@@ -1,279 +1,417 @@
-# 서버 api 데이터 통신 모델 구현하기
+# CollectionView 리스트 뷰 구현하기
 
 ## 💻 구현 사항
 
-- [서버 api 문서](https://docs.google.com/spreadsheets/d/1_l6aPfEUchSF_ymIp0DjyH8Ic00GIoqvd8dO9f7_sx4/edit#gid=1153044612)를 참고하여 네트워크와 통신을 하는 모델 구현(NetworkManager)
-    - 상품 목록 조회
-    - 상품 상세정보 조회
-    - 상품 등록(Muti-part form)
-    - 상품 수정(Muti-part form)
-    - 상품 삭제
-- 네트워크 요청 응답 모델 구현
-- 네트워크 통신 모델 테스트
-    - 네트워크에 의존하지 않는 테스트
+- 서버 api와 네트워크 통신을 통해 상품 정보를 불러옴.
+- CollectionView를 사용해서 상품의 정보를 사용자에게 리스트 형식으로 보여줌.
+- 무한 스크롤 구현
+- CollectionView 최상단에서 아래로 스크롤시 새로고침 구현
 
-### UML(서버와 통신하는 요청 응답 모델에 대한)
-
-![Uml](https://user-images.githubusercontent.com/35272802/133461765-ad6d4227-2fac-4a29-bbca-3826e723e246.png)
-
-### 테스트 항목
-
-- 네트워크와 통신을 하는 모델인 `NetworkManager` 테스트 항목들
-![스크린샷 2021-09-15 오후 11 43 21](https://user-images.githubusercontent.com/35272802/133461910-116616af-7e56-47be-bccc-09a8164dd736.png)
-
-
-테스트 커버리지
-![테스트 커버리지](https://user-images.githubusercontent.com/35272802/133461915-db2fe7de-d838-44ad-bd68-947b6eff224b.png)
+### 구현화면
+![리스트뷰](https://user-images.githubusercontent.com/35272802/136805052-6e57ee5f-e966-44a3-ae12-6d5eaca97913.gif)
 
 ---
 
 ## 🔑 학습 키워드
 
-- URLSession
-- Muti-part form-data
-- Unit-Test
-- Test Double
-- protocol associated type
-- URLProtocol
+- CollectionView
+- FlowLayout
+- UIRefreshControl
+- UIActivityIndicatorView
+- 이미지 비동기 로딩
+- Custom Cell
+- 무한 스크롤
+- Json Decoder
+- URLSession cancel
 
 ---
 
 ## 📖 학습 내용
 
-### Multi-Part/form-data
+### CollectionView에서 네트워크에서 받아온 이미지 보여주기
 
-Html코드를 사용해서 서버로 데이터를 보낼 때 `<form>` 태그를 사용해서 보낸다. `<form>` 속성에는 `enctype` 있는데 http 메소드에서 POST로 보낼 때 http body에 들어갈 데이터의 형식을 지정해 주는 속성이다. 디폴트 값은 `application/x-www-form-urlencoded` 이다. 이 속성은 key-value형식으로 보내기 용이하다(&를 구분자로 사용한다.) 하지만 이미지나 파일과 같은 바이너리 데이터는 보낼 수가 없다(이미지도 내부적으로는 숫자로 되어있고 엄청 긴 바이너리 코드로 되어 있다). 그래서 사용되는 속성이 `multipart/form-data` 이다.
+> tableView나 CollectionView에서 url을 통해서 이미지를 요청하고 받아올 떄는 반드시 유의해야하는 사항이 있습니다.
+> 
 
-`multipart/form-data` 예시
-
-![멀티파트](https://user-images.githubusercontent.com/35272802/133462426-ef62cd76-7a23-4ae0-bf20-230770098a26.png)
-
-
-### Test Double
-
-![테스트대역1](https://user-images.githubusercontent.com/35272802/133462098-e5d60108-bf73-445d-80eb-d02a6ac051f7.png)
-
-![테스트대역2](https://user-images.githubusercontent.com/35272802/133461925-03135ba6-654c-4749-b22f-21a0df6896fb.png)
-
-
-- 개념에 대해서 구분하는 그렇게 중요하지 않음.
-- 필요에 따라 적재적소에 사용하면 됨.
-- 이 프로젝트에는 Mock 객체를 만듬.
-
-### URLProtocol
-
-정의
-
-- URL 데이터를 처리할 수 있는 객체를 만들어주는 swift에서 제공하는 low-level의 객체이다.
-- 단독으로 사용해서는 안되고 반드시 상속을 해서 사용해야 한다.
-
-URLProtocol 사용해서 Mock 객체 만들기
+다음 예제 화면과 코드를 봅시다.
 
 ```swift
-class MockURLProtocol: URLProtocol {
-  // Mock response을 전달할 타입을 선언한다.
-  static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data?))?  
+func collectionView(_ collectionView: UICollectionView, 
+										cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+	...
+	URLSession.shared.dataTask(with: URL(string: item.largeImageURL)!) { data, _, _ in
+		if let data = data {
+			let image = UIImage(data: data)
+			DispatchQueue.main.async {
+				cell.photo.image = image
+			}
+		}			
+	...
+}
 
-  override class func canInit(with request: URLRequest) -> Bool {
-    // 외부에서 만들어지는 request를 처리할 수 있는지 여부
-    return true
-  }
+```
+![이미지바로로딩](https://user-images.githubusercontent.com/35272802/136804957-ac1af165-1855-49f7-ac94-4149d274f57e.gif)
 
-  override class func canonicalRequest(for request: URLRequest) -> URLRequest {
-    // 어떤 request를 리턴할 것인지 알려주는 함수(우리는 테스트를 위해서 매번 request를 만들어 준다)
-    return request
-  }
 
-  // Mock response를 만들어서 URLClient에게 전달할 것 이 함수 안에서 해야 함.
-  override func startLoading() {
-	guard let handler = MockURLProtocol.requestHandler else {
-	    fatalError("Handler is unavailable.")
+`cellForItemAt` 에서 이미지를 url로 불러오고 불러온 이미지를 바로 cell 넣습니다. 그런데 앱을 실행 시켜보면 위와 같이 이미지가 계속 바뀌는 현상을 볼 수 있습니다. 왜그럴까요?
+
+> 기본적으로 ios는 cell을 재사용하는데 이미지가 로딩이 완료되는 시점이 다 다르기 때문입니다.
+> 
+
+이미지는 아직 로딩 중인데 사용자가 화면을 스크롤해서 이동을 하면 또 다른 `cellForItemAt` 함수가 호출이 됩니다. 그러면 또 이미지를 불러오고 먼저 불러온 이미지가 재사용 된 셀에 보이고 또 다른 이미지가 보이는 현상이 발생합니다.(위 예제는 일부러 고해상도의 이미지를 사용했습니다. 저용량 이미지를 사용하면 아무 문제가 없는 것 처럼 보일 수 있습니다)
+
+그러면 이러한 문제를 어떻게 해결할 수 있을까요? 
+
+가장 먼저 떠오르는 방법은 cache를 사용하는 것입니다. 이미 한번 네트워크에서 받아온 이미지는 또 다시 받을 필요는 없을 것 같습니다. 처음 받아온 이미지와 해당 cell의 위치를 cache에 저장하고 다시 해당 위치에 `cellForItemAt` 이 호출 되었을 때 cache에 있는 이미지를 보여주면 됩니다.
+
+하지만 이것은 근본적인 해결 방식은 아닌 것 같습니다. 이 문제를 해결하기 위한 기록들은 고민한점(링크)에 기록하였습니다.
+
+### CollectionView Custom Cell 등록하기
+
+스토리보드에서 CollectionView 커스텀 cell을 구현할 때는 이미 주어진 cell에서 구현할 수도 있지만 xib파일을 따로 만들어서 구현할 수 있다. 그럴려면 뷰컨에서 nib를 register 해줘야 한다.
+
+```swift
+collectionView.register(UINib(nibName: "ListCollectionViewCell", bundle: nil),
+												forCellWithReuseIdentifier: "listCollectionViewCell")
+```
+
+### CollectionView Prefetching
+
+ios10에 추가 된 기술로 `willDisplay` 함수가 호출 되기 한참 전에 미리 호출이 되어서 cell에서 벌어지는 무거운 작업들을 비동기적으로 수행한다. 
+
+```swift
+collectionView.prefetchDataSource = self
+
+extension ViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView,
+                        prefetchItemsAt indexPaths: [IndexPath]) {
 	}
-    
-	  do {
-		  // 외부에서 만들어준 Mock response를 호출 한다.
-	    let (response, data) = try handler(request)
-    
-	    // 클라이언트에 response 전달
-	    client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-    
-	    if let data = data {
-	      // 클라이언트에서 data 전달
-	      client?.urlProtocol(self, didLoad: data)
-	    }
-    
-	    // 응답이 마무리 되었다는 것을 알려줌
-	    client?.urlProtocolDidFinishLoading(self)
-	  } catch {
-	    client?.urlProtocol(self, didFailWithError: error)
-	  }
-  }
-
-  override func stopLoading() {
-    // request가 끝나거나 취소 되었을 때 호출되는 함수
-  }
 }
 ```
 
-URLProtocol을 채택한 Mock 객체에 보낼 response 만들기
+- UICollectionViewDataSourcePrefetching 프로토콜을 채택해야 한다.
+- 반드시 `prefetchItemsAt` 함수를 구현해야 한다.
+- `prefetchItemsAt` 함수 안에서 `indexPath` 배열에 미리 작업해야할 indexPath들이 있다(천천히 스크롤 하면 하나의 indexPath 만 들어있다)
+
+### UILabel 취소선 구현하기
 
 ```swift
-MockURLProtocol.requestHandler = { request in
-	// 네트워크 요철을 한 URLRequest가 넘어옴(여기서 request에 대한 테스트 진행 가능)
-    
-	// 가짜 응답을 만들어서 리턴함.
-	let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-	return (response, Data())
+// 취소선 그리기
+let attributeString = NSMutableAttributedString(string: label.text!)
+attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle,
+                             value: NSUnderlineStyle.single.rawValue,
+                             range: NSRange(location: 0,
+                                            length: label.text?.count ?? 0))
+label.attributedText = attributeString
+
+// 취소선 지우기
+let attributeString = NSMutableAttributedString(string: label.text!)
+attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle,
+                                range: NSRange(location: 0,
+                                               length: label.text?.count ?? 0))
+label.attributedText = attributeString
+```
+
+### CALayer를 사용해서 CollectionView Cell의 구분선 그리기
+
+```swift
+extension CALayer {
+    func drawBottomBorder() {
+        let border = CALayer()
+        border.frame = CGRect.init(x: 0,
+                                   y: frame.height - 1.0,
+                                   width: frame.width,
+                                   height: 1.0)
+        border.backgroundColor = UIColor.gray.cgColor
+        self.addSublayer(border)
+    }
 }
 ```
 
-MockURLProtocol을 사용해서 MockURLSession 만들기
-
-```swift
-let configuration = URLSessionConfiguration.ephemeral
-configuration.protocolClasses = [MockURLProtocol.self]
-let mockUrlSession = URLSession(configuration: configuration)
-networkManager = NetworkManager(session: mockUrlSession)
-```
-
-- 이렇게 세팅을 마치고 urlSession을 기존과 동일한 방식으로 요청을 하면 Mock 객체를 사용해서 미리 설정해둔 응답과 데이터 전달이 된다. → 이렇게 하면 네트워크에 의존하지 않는 테스트를 할 수 있다.
-
----
+- CA → CoreAnimation (UIkit의 바로 상단 레벨, 더 상단은 Core Graphics)
+- UIView는 한개의 루트 CALayer를 가지고 있고 여러개의 sublayer를 둘 수 있다(UIView 처럼)
 
 ## 🤔 고민한 점
 
-### 요청 응답 모델을 어떻게 구현 할까? 어디까지 나눌까?
+### 이미지 로딩 `Data(contentsOf:)` VS `URLSession`
 
-- 이전 프로젝트에서는 요청 요청 모델을 각각 하나씩 만들어서 그곳에서 다 처리를 하려고 하였다. 그러다 보니 모델이 너무 커졌다.
-- 그래서 이번에는 프로토콜로 공통된 부분들을 빼고 이를 채택하게 하였다. → 프로토콜이 많아졌다 → 네트워크매니저에서 파라미터로 넘길 때 프로토콜 타입을 채택하니 수월해졌다.
+`Data(ContentOf:)`
 
-### 요청 응답 모델 프로토콜의 이름을 어떻게 지을까?
+- `UIImage` 의 생성자를 사용해서 이미지를 불러올 수 있다.
 
-- 네이밍을 하는 것은 매번 어렵다. 프로토콜의 이름을 지어줘야 하는데... API Design Guidelines 을 보니
-
-```
-- Protocols that describe what something is should read as nouns (e.g. Collection).
-- Protocols that describe a capability should be named using 
-  the suffixes able, ible, or ing (e.g. Equatable, ProgressReporting).
+```swift
+let url = URL(string: urlString)!
+let data = try? Data(contentsOf: url)
+imageView.image = UIImage(data: data!)
 ```
 
-형용사 혹은 명사로 지어주라고 되어 있었다. 요청 응답 모델은 프로퍼티들만 가지고 있음으로 형용사는 어울리지 않는 것 같아서 명사로 지어주었다. 그런데 짖다 보니 프로토콜도 모델 구조체도 모두 `Information` 이 들어가게 지어 주었다.. 맞는 건지 모르겠다.
+`URLSessionDataTask`
 
-### NetworkManager는 어느 역할까지 해야 할까? 함수는 어떻게 나눌까?
+```swift
+URLSession.shared.dataTask(with: imageURL) { data, response, error in 
+	guard let data = data else { return }
+	let image = UIImage(data: data)
+	DispatchQueue.main.async { 
+		imageView.image = image
+	}	
+}.resume()
+```
 
-- 이전 프로젝트에서는 서버 api에 요청을 하고 데이터를 받아서 파싱하는 역할까지 담당했었다. 그러다 보니 하나의 함수에서 구현하자니 함수가 너무 복잡해지고 각 요청 별로 함수를 만들었더니 중복되는 코드들이 많았다. 그래서 이번에는 파싱을 따로 해주고 요청 성공 했을 시 데이터까지만 넘겨주게 했다. 이렇게 했더니 코드가 많이 깔끔해진 것 같다.
-- 처음에는 서버 api의 요청하는 함수를 한개만 만들고 그곳에서 모든 요청을 처리하려고 했다. 그런데 함수가 복잡해졌고, 조금 세분화 해서 함수를 구현하려고 했다. 크게 조회 요청, 멀티파트 업로드 요청, json 요청 3가지로 나눠서 함수를 구현하였다.
+> url을 사용해서 이미지를 불러올 수 있는 방법은 위와 같이 두가지 이다. 어떤 것을 사용할까?
+> 
 
-    ```swift
-    func request(_ endPoint: EndPoint, 
-    		 completion: @escaping ResultHandler)
-		 
-    func upload(form: MutipartForm, 
-    		_ endPoint: EndPoint, 
-    		completion: @escaping ResultHandler)
-    ```
+결론적 `URLSession` 을 사용하라고 애플은 권장한다. 이유는 다음과 같다.
 
-### 네트워크와 무관한 테스트를 할 때 MockURLSession을 만들까? URLProtocol을 사용할까?
+NSData에 `init(contentsOf:)` [공식문서](https://developer.apple.com/documentation/foundation/nsdata/1413892-init) 을 보자! 
 
-MockURLSession
+```
+Important
+Don't use this synchronous initializer to request network-based URLs. 
+For network-based URLs, this method can block the current thread for 
+tens of seconds on a slow network, resulting in a poor user experience, 
+and in iOS, may cause your app to be terminated.
+Instead, for non-file URLs, consider using the 
+dataTask(with:completionHandler:) method of the URLSession class. 
+```
 
-- Mock 객체를 만들면 테스트하기가 매우 용이하고 자료도 많다.
-- 하지만 치명적이게도.. URLSessionDatatask의 이니셜라이즈가 ios13부터 deprecated 되었다.
+당연하게 해당 initializer는 동기로 작동을 한다. 이것을 여러번 쓰게 돠면 메인쓰레드가 블락이 될 수 있는 상황이 생긴다. 그래서 내부적으로 비동기로 작동하는 `URLSessionDataTask` 를 사용하라고 권장하고 있다.
 
-URLProtocol
+그런데 한가지 드는 의문점이 있다.
 
-- 그래서 결국 URLProtocol을 사용하기로 했다. 내가 원하는 요청과 응답을 만들어서 보낼 수 있다.
-- URLRequest로 담아서 보낸 요청이 URLProtocol안에서 일부 처리되거나 없어지기는 하지만 아직까지는 못하는 테스트는 없는 것 같아서 사용하기로 했다.
+> 그러면 글로벌 큐를 사용해서 비동기적으로 처리해주면 안되나?
+> 
 
-### 상품 수정 요청을 테스트 할 때 어떻게 Mock 응답을 만들어 줄까?
+```swift
+DispatchQueue.global().async { [weak self] in
+	if let data = try? Data(contentsOf: url) {
+		if let image = UIImage(data: data) {
+			DispatchQueue.main.async {
+				self?.image = image
+			}
+		}
+	}
+}
+```
 
-서버에서 수행하는 상품 요청 프로세스
+다음과 같은 예제를 자주 볼 수 있다.
 
-1. 상품 수정을 요청한다.
-2. 요청을 받은 데이터 중에서 어떤 속성이 바뀌어야 하는지를 기존의 있는 데이터와 비교한다.
-3. 업데이트 된 상품 정보를 다시 json 형식으로 변환해서 클라이언트에서 넘겨준다.
+그런데 왜 애플은 `URLSession` 을 추천했을까? 
 
-이러한 작업을 `MockURLProtocol.requestHandler` 안에서 해주어야 한다. 그럴러면 `multipart/form-data` 형식으로 오는 httpbody를 파싱을 해서 위에서 언급한 프로세스를 진행해야 한다. 직접 구현하기는 시간이 오려 걸려서 [오픈 소스](https://github.com/417-72KI/MultipartFormDataParser)를 찾아봤다. 시도를 해봤지만 내가 만든 형식과 맞지 않는지.. 계속 유효하지 않는 형식이라는 에러가 나서 일단 더미 데이터를 넘기는 테스트로 남겨두었다. 나중에 시간이 되면 오픈 소스 코드를 보고 서라도 직접 구현해서 테스트를 진행해 봐야겠다.
+일단 `URLSession` 의 기능이 휠씬 많다. 설정을 다양하게 줄 수 있고 실패 했을 때 처리도 다양하게 해줄 수 있다. 그리고 요청을 취소하는 것도 가능하다.
+
+나중을 생각하더라고 코드를 추가,수정을 하거나 리펙토링을 하더라도 `URLSession` 을 사용하는게 용이해 보인다.
+
+> 추가
+> 
+- ios15에서는 `AsyncImage` 가 추가된다고 합니다!
+
+### Cache를 사용하지 않고 CollectionView에서 이미지 로딩 구현하기
+
+첫번째 시도 - `cellForItemAt` 호출 시점의 IndexPath와 이미지 다운이 완료된 시점의 IndexPath를 비교해서 구현
+
+```swift
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+	guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {
+		return UICollectionViewCell()
+	}
+	let model = models[indexPath.item]
+	URLSession.shared.dataTask(with: URL(string: model.fullURL)!) { data, _, _ in
+		if let data = data {
+			let image = UIImage(data: data)
+			DispatchQueue.main.async {
+				if let cellIndex = **collectionView.indexPath(for: cell)**,
+							 cellIndex == indexPath {
+					cell.photo.image = image
+				}
+			}
+		}
+	}
+}
+```
+
+- 셀이 계속 재사용 됨으로 스크롤을 빠르게 하면 동일한 셀에 여러개의 이미지 요청이 생김.
+- `collectionView.indexPath(for: cell)` 은 현재 화면에 보이는 셀의 `indexPath` 를 반환함.
+    - 만약 5개를 셀을 재사용한다고 가정해 보자
+    - 데이터의 갯수는 30개라고 했을 때 위에서 맨 아래로 스크롤을 하고 5번쨰 셀에 어떤 이미지 요청이 있는지를 보자.
+    - 그러면 5, 10, 15, 20, 25, 30번째 이미지를 요청하고 그 셀에 이미지를 넣으려고 할 것이다.
+    - 하지만 우리는 지금 30번째에 있기 때문에 30번째 이미지 만을 보여줘야 한다.
+    - 그래서 `cellIndex == indexPath` 을 비교해서 같은 indexPath만 보여지게 한다.
+        - 다른 이미지들은 다운은 받아지지만 이미지뷰에는 보여지지 않는다.
+
+> 이 방법은 TableView와 ios10 이전의 collecionView에서는 잘 동작을 한다. 하지만 지금 collectionView에서는 문제가 있다.
+> 
+
+![collectionView_문제](https://user-images.githubusercontent.com/35272802/136805590-70db1f1d-ab02-48c6-b659-e600561ed313.gif)
+
+
+collectionView에서 아주 살짝 스크롤를 내렸는데 3~4의 `cellForItemAt` 이 미리 호출되어 버렸다.
+
+이렇게 되면 `collectionView.indexPath(for: cell)` 을 호출했을 때 찾고자 하는 cell이 화면에 없게되고 그러면 nil을 리턴하게 된다.(ios15부터는 조금 수정되었다고 한다) 미리 호출한 셀의 이미지는 나타나지 않는다.
+
+tableView와 달리 collectionView는 한 행에 여러개의 cell를 보여줄 수 있기 때문에 미리 cell을 만들어놔야 부드럽게 스크롤이 되어 사용자 경험을 좋게 할 수 있다. (ios10에 collectionView prefetching 기술이 도입 되었다)
+
+`collectionView.isPrefetchingEnabled = false` 를 설정해서 prefetching 기능 비활성화 시키는 방법도 있지만 애플이 의도한것은 아닐 것 같다.
+
+다른 한가지 방법을 생각볼 수 있는 것은.. 이미지 요청을 하는 `URLSessionDataTask` 을 재사용 할때 dataTask를 취소 시키는 것이다. 이렇게 구현하려면 이미지를 요청하고 cell안에 이미지뷰에 넣으려면 `cellForItemAt`보다 Cell 객체 안에서 수행하고 `prepareForReuse` 함수를 사용하는 것이 좋을 것 같다.
+
+먼저 Cell 클래스 안에서 이미지를 불러오는 로직을 구현해 보자! 그리고 `prepareForReuse` 함수에서 dataTask를 `cancel()` 을 해보자!
+
+```swift
+class CollectionViewCell: UICollectionViewCell {
+	@IBOutlet weak var photo: UIImageView!
+	var dataTask: URLSessionDataTask?
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		photo.image = nil
+		dataTask?.cancel()
+	}
+
+	func loadImage(url: String) {
+		dataTask = URLSession.shared.dataTask(with: URL(string: url)!) { data, _, _ in
+			if let data = data {
+				let image = UIImage(data: data)
+				DispatchQueue.main.async { [weak self] in 
+					self?.photo.image = image
+				}
+			}
+		}
+		dataTask?.resume()
+	}
+}
+```
+
+![prepareforreuse_cancel](https://user-images.githubusercontent.com/35272802/136805614-d0d01b8f-7de1-4fbb-96f2-1bf040a86366.gif)
+
+
+`cancel()` 을 했는데 취소가 되지 않는다..(위의 경우에는 `prepareForReuse` 가 잘 호출되지만 빠르게 스크롤하면 호출이 안되는 경우도 있었다.)
+
+새로운 이미지 요청을 하기 전에 이전에 있던 요청을 취소해도 계속 취소가 되지 않았다.
+
+```swift
+func loadImage(url: String) {
+	dataTask?.cancel()
+	...
+	...
+}
+```
+
+검색을 해 보아도 왜 dataTask가 취소가 되지 않는지는 명확하게 나온 것이 없어서 맨 처음 사용했던 `indexPath` 를 비교하는 방법을 cell안에서 사용해 보기로 했다.
+
+```swift
+class CollectionViewCell: UICollectionViewCell {
+	@IBOutlet weak var photo: UIImageView!
+	var dataTask: URLSessionDataTask?
+	var indexPath: IndexPath?
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		photo.image = nil
+		dataTask?.cancel()
+	}
+
+	func loadImage(url: String, indexPath: IndexPath) {
+		dataTask = URLSession.shared.dataTask(with: URL(string: url)!) { data, _, _ in
+			if let data = data {
+				let image = UIImage(data: data)
+				DispatchQueue.main.async { [weak self] in 
+					if self?.indexPath == indexPath {
+						self?.photo.image = image
+					}
+				}
+			}
+		}
+		dataTask?.resume()
+		self.indexPath = indexPath
+	}
+}
+```
+
+- cell이 indexPath를 가지고 있고 이미지 요청을 하고 난 바로 직후 매개변수로 넘겨 받은 indexPath를 가지고 있는다.
+- 그리고 메인쓰레드에서는 이미지 요청이 끝난 시점에서 현재 cell의 indexPath와 요청한 indexPath를 비교한다.
+- 스크롤 빨리 하면 한개의 cell의 여러 요청이 오고 현재 cell과 같은 위치의 요청만 이미지를 보여주면 된다.
+
+![cell안에서_indexpath비교](https://user-images.githubusercontent.com/35272802/136805647-77c6e3b4-fbfa-479f-8242-28b85993f16c.gif)
+
+
+아무래도 cache를 사용하지 않고 구현하다 보니 어려움 있었다. 물론 테스트를 위해서 이미지 용량을 크게 했다. 보통은 리스트 뷰에는 썸네일 크기의 이미지를 보여줘 크게 처리 문제 될일이 없지만 이번 기회에 어떻게 collectionView가 동작하는지도 알아보고 좋은 경험이었다.
+
+### 어떻게 페이지 무한 스크롤을 구현할 것인가?
+
+> collectionView prefetch 함수에 구현
+> 
+- prefetch 함수 안에서 indexPath가 상품 배열에 마지막일 때 마음 페이지(20개)를 미리 불러옴.
+- 문제점 - 아주 빠르게 스크롤 할 경우 prefetch 함수가 호출이 안되는 경우가 있음. → 이럴 때는 스크롤을 다시 위로 올렸다가 내리면 호출이 되면서 로딩이 됨.
+    
+![prefatch_scroll_문제](https://user-images.githubusercontent.com/35272802/136805163-ed1b627a-9d99-4924-86dc-50db74cc7932.gif)
+    
+
+> 빠른 스크롤 대비해서 `willDisplay` 함수에도 로딩 구현
+> 
+- 상품이 배열의 마지막 `willDisplay` 함수를 호출 했을 때도 서버api에 요청을 하게 구현
+- 중복 호출 방지로 여러번 호출 되지 않음.
+
+### 무한 스크롤 구현 시 어떻게 중복 호출을 방지할 수 있을까?
+
+뷰컨의 `isFetching` 프로퍼티를 두어서 중복 호출 되지 않게 방지
 
 ---
 
 ## 🚧 트러블 슈팅
 
-### URLProtocol의 핸들러에서 error을 넘겨주었으나 응답에서 넘어오지 않는 문제
+### Xcode에서 프로젝트 스킴이 안나오는 현상
 
-원인
+[https://jamesu.dev/posts/2021/03/02/til-29-how-to-fix-no-scheme-bug-in-xcode/](https://jamesu.dev/posts/2021/03/02/til-29-how-to-fix-no-scheme-bug-in-xcode/)
 
-- URLProtocol 구현부인 `startLoading()` 함수에서 error을 넘겨주지 않아서 생기는 문제였다.
+xcodeproj/xcuserdata 삭제를 하고 xcode 재부팅하니 해결!!!!!
 
-해결책
+### refreshControl.endRefreshing() 호출시 스크롤이 끊기는 현상
+![스크롤_끊김](https://user-images.githubusercontent.com/35272802/136805142-39f12ed1-c920-439b-b4b4-7f8ead015221.gif)
 
-- error을 URLProtocolClient 안에 있는 urlProtocol에 넘겨주었더니 해결되었다.
+
+> 원인
+> 
+- 정확한 이유는 모르겠다..
+- 검색을 해보니 `isRefreshing` 이 true 일때만 호출하거나 딜레이를 시켜서 호출하라는 예시가 많이 나와있다.
+
+> 해결 방법
+> 
+- 서버 api에서 fetch 하는 함수에 클로저를 넣어줘 상황에 따라 fetch가 끝나는 작업을 매개변수로 넘겨주었다.
 
 ```swift
-override func startLoading() {
-	guard let handler = MockURLProtocol.requestHandler else {
-		XCTFail("Handler is unavailable.")
-		return
-        }
-        
-        do {
-            let (data, response, error) = try handler(self.request)
-            
-            if let response = response {
-                client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-            }
-            
-            if let data = data {
-                client?.urlProtocol(self, didLoad: data)
-            }
-            
-            // error을 넘겨주었더니 해결
-            if let error = error {
-                client?.urlProtocol(self, didFailWithError: error)
-            }
-            
-            client?.urlProtocolDidFinishLoading(self)
-        } catch {
-            client?.urlProtocol(self, didFailWithError: error)
-        }
-    }
+func fetchgoodsData(handler: (() -> Void)?)
+
+// 아래로 스크롤 후
+fetchgoodsData {
+	self.refreshControl.endRefreshing()
+}
+
+// 인피니티 스크롤 시 -> fetch 후 아무 작업도 안함.
+fetchgoodsData(handler: nil)
 ```
 
-### URLProtocol을 사용해서 응답데이터 nil을 넘겨주어서 보냈는데 빈 Data() 인스턴스가 넘어오는 문제
+### 아래로 스크롤시 `cellForItemAt` 에서 Index out of range 에러가 발생하는 문제
 
-참고자료
+> 원인
+> 
+- 스크롤을 시작하자마자 상품 정보가 담겨 있는 배열을 모두 비우고 다시 스크롤이 아래로 내려가면 `cellForItemAt` 함수가 호출되면서(리스트뷰는 8.9번째가 호출됨) 상품 정보 배열에 indexPath로 접근을 하지만 이미 배열에는 아무것도 없어서 발생하는 문제
 
-- [https://stackoverflow.com/questions/62406384/how-to-load-nil-data-with-a-urlprotocol-subclass](https://stackoverflow.com/questions/62406384/how-to-load-nil-data-with-a-urlprotocol-subclass)
-
-원인
-
-- `URLProtocol` 내부에서 무조건 Data 인스턴스를 만들어주는 것 같다.
-
-해결책
-
-- NetworkManager에서 데이터를 확인하는 부분에 데이터가 비어있는 여부까지 확인을 한다.
+> 해결방법
+> 
+- `cellForItemAt` 에서 배열이 비어 있을 때는 접근하기 못하게 막음.
 
 ```swift
-guard let data = data, !data.isEmpty else {
-	return completion(.failure(.invalidData))
+func collectionView(_ collectionView: UICollectionView,
+                    cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+	...
+	if !goods.isEmpty {
+		cell.configure(with: goods[indexPath.item])
+	}
+	...
 }
 ```
 
-### protocol에서 associatedtype을 String, String?로 강제하는 것
-
-원인
-
-- 요청 모델을 만들 때 상품 등록과 수정의 속성들이 모두 같고 옵셔널인 것만 달라서 이것을 어떻게 공통으로 뺼 수 있을까를 고민했다. 그런 중에 protocol에 `associatedtype` 이 있다는 것을 알게 되었다. 이것을 사용해서 해당 원시 타입과 원시 타입의 옵셔널만을 채택하는 커스텀 protocol을 만들어서 사용하려고 했는데 옵셔널이 채택 되지 않는 것이다.
-
-해결책(Thank to 수박)
-
-- 동료인 수박이 알려주었다.
-
-```swift
-protocol Stringable {}
-
-extension String: Stringable {}
-extension Optional: Stringable where Wrapped == String {}
-```
-
-옵셔널도 하나의 열거형이기 그 안에 제너릭으로 타입이 들어오는 것이다. `where` 절을 사용해서 이를 강제해주면 해결된다.
+> 수정
+> 
+- 상품 배열에 didset 안에 collectionView를 변경하는 코드를 삽입
+- 배열이 다 지워질때 `reloadData()` 를 하고 그 다음 다시 새로운 데이터가 들어왔을때 `insertItems()` 함수를 호출해서 위 해결 방법에서 작성한 코드가 없어도 됨(`if !goods.isEmpty` 삭제)
