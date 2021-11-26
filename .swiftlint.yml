@@ -1,6 +1,9 @@
 disabled_rules:
+- trailing_whitespace
+- identifier_name
 included:
 excluded:
 - Pods
-- OpenMarket/AppDelegate.swift
-- OpenMarket/SceneDelegate.swift
+- OpenMarket/SupportingFiles/AppDelegate.swift
+- OpenMarket/SupportingFiles/SceneDelegate.swift
+- OpenMarketTests/Network/Dummy/
